@@ -1,51 +1,32 @@
 "use client";
 import Link from "next/link";
 import { Database, Globe, Megaphone, Bot, Server, Smartphone, ArrowRight } from "lucide-react";
+import { serviceCategories } from "@/lib/services-data";
 
-const pillars = [
-  {
-    icon: Database,
-    name: "ERP & Business Solutions",
-    href: "/services/erp",
-    color: "#2563eb",
-    services: ["Odoo ERP Implementation", "HCM & Payroll", "CRM & Marketing Automation", "SAP Business One", "Zoho Suite", "Microsoft Dynamics 365"],
-  },
-  {
-    icon: Globe,
-    name: "Web & eCommerce",
-    href: "/services/web-ecommerce",
-    color: "#7c3aed",
-    services: ["Custom Website Design", "Shopify & Shopify Plus", "WordPress Development", "WooCommerce", "Headless Commerce", "UI/UX Design"],
-  },
-  {
-    icon: Megaphone,
-    name: "Digital Marketing",
-    href: "/services/digital-marketing",
-    color: "#d97706",
-    services: ["SEO Services", "Google Ads / SEM", "Social Media Marketing", "Meta Advertising", "Content Marketing", "Brand Identity & Design"],
-  },
-  {
-    icon: Bot,
-    name: "AI, Automation & Data",
-    href: "/services/ai-automation",
-    color: "#059669",
-    services: ["AI Consulting & Strategy", "Generative AI Solutions", "AI Chatbots", "RPA", "Business Intelligence", "Machine Learning"],
-  },
-  {
-    icon: Server,
-    name: "IT Infrastructure",
-    href: "/services/it-infrastructure",
-    color: "#0284c7",
-    services: ["IT Consulting", "Cloud Solutions", "Cybersecurity", "Managed IT Services 24/7", "Networking Solutions", "Disaster Recovery"],
-  },
-  {
-    icon: Smartphone,
-    name: "Mobile App Development",
-    href: "/services/mobile-apps",
-    color: "#dc2626",
-    services: ["iOS App Development", "Android Development", "React Native", "Flutter", "PWA", "Enterprise Mobile Solutions"],
-  },
-];
+const pillarMeta: Record<string, { icon: typeof Database; color: string }> = {
+  "erp":                { icon: Database,   color: "#2563eb" },
+  "web-ecommerce":      { icon: Globe,      color: "#7c3aed" },
+  "digital-marketing":  { icon: Megaphone,  color: "#d97706" },
+  "ai-automation":      { icon: Bot,        color: "#059669" },
+  "it-infrastructure":  { icon: Server,     color: "#0284c7" },
+  "mobile-apps":        { icon: Smartphone, color: "#dc2626" },
+};
+
+const MAX_SERVICES_PER_PILLAR = 6;
+
+const pillars = serviceCategories.map(cat => {
+  const meta = pillarMeta[cat.slug] ?? { icon: Database, color: "#2563eb" };
+  return {
+    icon: meta.icon,
+    color: meta.color,
+    name: cat.name,
+    href: `/services/${cat.slug}`,
+    services: cat.services.slice(0, MAX_SERVICES_PER_PILLAR).map(s => ({
+      name: s.name,
+      href: `/services/${cat.slug}/${s.slug}`,
+    })),
+  };
+});
 
 export default function MegaMenu({ onClose }: { onClose: () => void }) {
   return (
@@ -106,9 +87,9 @@ export default function MegaMenu({ onClose }: { onClose: () => void }) {
               {/* Service links */}
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.375rem" }}>
                 {pillar.services.map(svc => (
-                  <li key={svc}>
+                  <li key={svc.href}>
                     <Link
-                      href={`${pillar.href}/${svc.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`}
+                      href={svc.href}
                       onClick={onClose}
                       style={{
                         fontSize: "0.8125rem",
@@ -122,7 +103,7 @@ export default function MegaMenu({ onClose }: { onClose: () => void }) {
                       onMouseEnter={e => { e.currentTarget.style.color = pillar.color; }}
                       onMouseLeave={e => { e.currentTarget.style.color = "#64748b"; }}
                     >
-                      {svc}
+                      {svc.name}
                     </Link>
                   </li>
                 ))}
