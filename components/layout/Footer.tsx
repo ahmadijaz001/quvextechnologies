@@ -178,7 +178,7 @@ export default function Footer() {
                 }}
               >
                 <Image
-                  src="/Logo.png"
+                  src="/AkrossLogo.png"
                   alt="aKross"
                   width={42}
                   height={42}

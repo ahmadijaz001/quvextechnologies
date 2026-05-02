@@ -75,7 +75,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
               boxShadow: "0 4px 20px rgba(212,175,55,0.3)",
             }}
           >
-            <Image src="/Logo.png" alt="aKross" width={32} height={32} style={{ objectFit: "contain" }} />
+            <Image src="/AkrossLogo.png" alt="aKross" width={32} height={32} style={{ objectFit: "contain" }} />
           </div>
           <div>
             <span

@@ -1,28 +1,16 @@
 "use client";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import {
   ArrowUpRight, Calendar, ChevronLeft, ChevronRight,
   Database, Bot, ShieldCheck, Cloud, Star, Sparkles,
   CheckCircle2, Globe, Cpu, Server, Boxes, Smartphone, Network,
 } from "lucide-react";
 
+import dynamic from "next/dynamic";
+
 const Hero3DSlider = dynamic(() => import("./Hero3DSlider"), {
   ssr: false,
-  loading: () => (
-    <div
-      aria-hidden="true"
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 0,
-        background:
-          "radial-gradient(ellipse 60% 50% at 50% 60%, rgba(212,175,55,0.10) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }}
-    />
-  ),
 });
 
 /* ══════════════════════════════════════════
@@ -284,23 +272,21 @@ export default function Hero() {
         minHeight: "100svh",
         height: "100svh",
         overflow: "hidden",
-        background: "var(--bg-midnight)",
+        /* Explicit sky-color base — guarantees the section is never white,
+           even before 3D chunks load or during HMR transitions. */
+        background: "linear-gradient(180deg, #1b3056 0%, #0f1d3d 35%, #050a1c 75%, #02040c 100%)",
       }}
     >
-      {/* ── SKY → GALAXY base gradient ──
-            top: deep cyan/navy "sky"
-            mid: twilight purple
-            bottom: black galaxy with star noise (existing GoldParticles) */}
+      {/* ── Sky-blue glow + galaxy haze on top of the base ── */}
       <div
         aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(63,107,168,0.45) 0%, transparent 60%)," +
-            "radial-gradient(ellipse 70% 60% at 30% 90%, rgba(80,40,140,0.35) 0%, transparent 65%)," +
-            "radial-gradient(ellipse 60% 50% at 80% 80%, rgba(20,30,80,0.45) 0%, transparent 60%)," +
-            "linear-gradient(180deg, #0a1638 0%, #08102a 30%, #050816 65%, #02040c 100%)",
+            "radial-gradient(ellipse 100% 60% at 50% 0%, rgba(86,160,220,0.28) 0%, transparent 70%)," +
+            "radial-gradient(ellipse 70% 55% at 25% 85%, rgba(60,30,120,0.22) 0%, transparent 65%)," +
+            "radial-gradient(ellipse 60% 50% at 85% 80%, rgba(30,50,100,0.28) 0%, transparent 60%)",
           pointerEvents: "none",
         }}
       />
@@ -661,9 +647,14 @@ export default function Hero() {
         >
           <div
             style={{
-              alignSelf: "flex-start",
+              alignSelf: "flex-end",
               maxWidth: 360,
               width: "100%",
+              marginLeft: "auto",
+              textAlign: "right",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
               animation: "heroFadeIn 0.9s 0.6s both",
             }}
           >
@@ -723,9 +714,9 @@ export default function Hero() {
           {/* Horizontal 3-card row */}
           <div className="hero-svc-row">
             {[
-              { icon: Server,     title: "IT Infrastructure",  caption: "Software · Hardware · Networking", href: "#services", float: "heroSvcFloat1" },
-              { icon: Boxes,      title: "ERP Implementation", caption: "Odoo · Oracle · Custom",            href: "#services", float: "heroSvcFloat2" },
-              { icon: Smartphone, title: "Digital Services",   caption: "Web · App · UX Design",             href: "#services", float: "heroSvcFloat3" },
+              { icon: Server,     title: "IT Infrastructure",  caption: "Software · Hardware · Networking", href: "/services/it-infrastructure", float: "heroSvcFloat1" },
+              { icon: Boxes,      title: "ERP Implementation", caption: "Odoo · Oracle · Custom",            href: "/services/erp",                float: "heroSvcFloat2" },
+              { icon: Smartphone, title: "Digital Services",   caption: "Web · App · UX Design",             href: "/services/web-ecommerce",      float: "heroSvcFloat3" },
             ].map((p, i) => {
               const Icon = p.icon;
               return (

@@ -108,7 +108,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/Logo.png", type: "image/png" },
+      { url: "/AkrossLogo.png", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
   },
@@ -129,7 +129,7 @@ const organizationSchema = {
       url: "https://akross.ae",
       logo: {
         "@type": "ImageObject",
-        url: "https://akross.ae/Logo.png",
+        url: "https://akross.ae/AkrossLogo.png",
         width: 512,
         height: 512,
       },
@@ -153,7 +153,7 @@ const organizationSchema = {
       "@type": "LocalBusiness",
       "@id": "https://akross.ae/#localbusiness",
       name: "aKross Information Technology LLC",
-      image: "https://akross.ae/Logo.png",
+      image: "https://akross.ae/AkrossLogo.png",
       url: "https://akross.ae",
       telephone: "+971-4-000-0000",
       priceRange: "$$$",

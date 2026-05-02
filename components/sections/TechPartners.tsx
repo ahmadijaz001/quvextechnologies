@@ -1,58 +1,121 @@
 "use client";
-import { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
 
-// Each partner has a multi-character abbr rendered in a styled logomark
-const partners = [
-  { name: "Odoo",                abbr: "oo",   tier: "Gold Partner",        color: "#c9a44c",  description: "ERP & Business Apps" },
-  { name: "Shopify Plus",        abbr: "S+",   tier: "Partner",             color: "#7b2fff",  description: "eCommerce Platform" },
-  { name: "Amazon Web Services", abbr: "aws",  tier: "Select Tier Partner", color: "#00d4ff",  description: "Cloud Infrastructure" },
-  { name: "Microsoft Azure",     abbr: "Az",   tier: "Partner",             color: "#0066ff",  description: "Cloud & Productivity" },
-  { name: "Google Cloud",        abbr: "GC",   tier: "Partner",             color: "#00e68a",  description: "Cloud & AI Platform" },
-  { name: "Meta Business",       abbr: "f",    tier: "Business Partner",    color: "#0066ff",  description: "Digital Advertising" },
-  { name: "WordPress",           abbr: "W",    tier: "Agency Partner",      color: "#7b2fff",  description: "CMS & Web Platform" },
-  { name: "Cisco",               abbr: "C!",   tier: "Premier Partner",     color: "#00d4ff",  description: "Networking & Security" },
-  { name: "Fortinet",            abbr: "FT",   tier: "Partner",             color: "#ff4d6a",  description: "Cybersecurity" },
-  { name: "HubSpot",             abbr: "Hs",   tier: "Solutions Partner",   color: "#c9a44c",  description: "CRM & Marketing" },
-  { name: "Zoho",                abbr: "Z",    tier: "Premium Partner",     color: "#00e68a",  description: "Business Suite" },
-  { name: "Palo Alto Networks",  abbr: "PA",   tier: "Partner",             color: "#ff4d6a",  description: "Next-Gen Security" },
-  { name: "VMware",              abbr: "vm",   tier: "Partner",             color: "#00d4ff",  description: "Virtualization" },
-  { name: "Dell Technologies",   abbr: "dell", tier: "Partner",             color: "#0066ff",  description: "Hardware & Cloud" },
-  { name: "HPE",                 abbr: "HPE",  tier: "Partner",             color: "#00e68a",  description: "Servers & Storage" },
-  { name: "ServiceNow",          abbr: "sn",   tier: "Partner",             color: "#c9a44c",  description: "ITSM Platform" },
-  { name: "Magento / Adobe",     abbr: "M",    tier: "Partner",             color: "#ff4d6a",  description: "Commerce Platform" },
-  { name: "Google Ads",          abbr: "G",    tier: "Premier Partner",     color: "#00e68a",  description: "Search & Display" },
+/* ─── Partner data ────────────────────────────────────────────────────────
+   `slug` matches simpleicons.org for most brands. Some enterprise vendors
+   (AWS, Azure, Google Cloud, ServiceNow, Adobe Commerce) were removed from
+   simpleicons due to trademark policies — for those we use direct Wikimedia
+   URLs which are stable and freely licensed. */
+type Partner = {
+  name: string;
+  slug?: string;          // simpleicons slug (used unless logoUrl is set)
+  logoUrl?: string;       // explicit override for brands missing from simpleicons
+  tier: string;
+  description: string;
+  fallback?: string;      // 1–3 letter mark shown if the image fails to load
+};
+
+const partners: Partner[] = [
+  { name: "Odoo",                slug: "odoo",       tier: "Gold Partner",        description: "ERP & Business Apps", fallback: "Odoo" },
+  { name: "Shopify Plus",        slug: "shopify",    tier: "Partner",             description: "eCommerce Platform", fallback: "S+" },
+  {
+    name: "Amazon Web Services",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+    tier: "Select Tier Partner",
+    description: "Cloud Infrastructure",
+    fallback: "AWS",
+  },
+  {
+    name: "Microsoft Azure",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg",
+    tier: "Partner",
+    description: "Cloud & Productivity",
+    fallback: "Azure",
+  },
+  {
+    name: "Google Cloud",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
+    tier: "Partner",
+    description: "Cloud & AI Platform",
+    fallback: "GC",
+  },
+  { name: "Meta Business",       slug: "meta",       tier: "Business Partner",    description: "Digital Advertising", fallback: "Meta" },
+  { name: "WordPress",           slug: "wordpress",  tier: "Agency Partner",      description: "CMS & Web Platform", fallback: "WP" },
+  { name: "Cisco",               slug: "cisco",      tier: "Premier Partner",     description: "Networking & Security", fallback: "Cisco" },
+  { name: "Fortinet",            slug: "fortinet",   tier: "Partner",             description: "Cybersecurity", fallback: "Fortinet" },
+  { name: "HubSpot",             slug: "hubspot",    tier: "Solutions Partner",   description: "CRM & Marketing", fallback: "HS" },
+  { name: "Zoho",                slug: "zoho",       tier: "Premium Partner",     description: "Business Suite", fallback: "Zoho" },
+  { name: "VMware",              slug: "vmware",     tier: "Partner",             description: "Virtualization", fallback: "VM" },
+  { name: "Dell Technologies",   slug: "dell",       tier: "Partner",             description: "Hardware & Cloud", fallback: "Dell" },
+  {
+    name: "HPE",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ad/HPE_logo.svg",
+    tier: "Partner",
+    description: "Servers & Storage",
+    fallback: "HPE",
+  },
+  {
+    name: "ServiceNow",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/57/ServiceNow_logo.svg",
+    tier: "Partner",
+    description: "ITSM Platform",
+    fallback: "Now",
+  },
+  {
+    name: "Adobe Commerce",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/8/85/Magento_Logo.svg",
+    tier: "Partner",
+    description: "Magento Platform",
+    fallback: "Adobe",
+  },
+  { name: "Google Ads",          slug: "googleads",  tier: "Premier Partner",     description: "Search & Display", fallback: "Ads" },
 ];
 
-const VISIBLE   = 5;
-const TOTAL     = partners.length;
-const MAX_SLIDE = TOTAL - VISIBLE;
+function PartnerCard({ p }: { p: Partner }) {
+  const [errored, setErrored] = useState(false);
+  const url = p.logoUrl ?? (p.slug ? `https://cdn.simpleicons.org/${p.slug}` : "");
+  const showFallback = errored || !url;
+
+  return (
+    <article className="partner-card" aria-label={`${p.name} — ${p.tier}`}>
+      <div className="partner-logo-wrap">
+        {showFallback ? (
+          <span className="partner-logo-fallback" aria-hidden="true">
+            {p.fallback ?? p.name.slice(0, 3)}
+          </span>
+        ) : (
+          <img
+            className="partner-logo"
+            src={url}
+            alt={`${p.name} logo`}
+            loading="lazy"
+            width={48}
+            height={48}
+            onError={() => setErrored(true)}
+          />
+        )}
+      </div>
+      <div className="partner-name">{p.name}</div>
+      <div className="partner-desc">{p.description}</div>
+      <div className="partner-tier">
+        <span className="partner-tier-dot" />
+        {p.tier}
+      </div>
+    </article>
+  );
+}
 
 export default function TechPartners() {
-  const [slide,   setSlide]   = useState(0);
-  const [paused,  setPaused]  = useState(false);
-  const [hovered, setHovered] = useState<number | null>(null);
-  const { ref: sectionRef, isVisible } = useInView<HTMLElement>();
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const next = useCallback(() => setSlide(s => (s >= MAX_SLIDE ? 0 : s + 1)), []);
-  const prev = useCallback(() => setSlide(s => (s <= 0 ? MAX_SLIDE : s - 1)), []);
-
-  useEffect(() => {
-    if (paused) return;
-    intervalRef.current = setInterval(next, 3000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [paused, next]);
-
-  const CARD_W = 100 / VISIBLE;
+  const { ref, isVisible } = useInView<HTMLElement>();
+  const loop = [...partners, ...partners]; // duplicate so the marquee loops seamlessly
 
   return (
     <section
-      ref={sectionRef}
+      ref={ref}
       aria-labelledby="partners-heading"
       className="section-padding"
-      style={{ background: "var(--bg-primary)", overflow: "hidden" }}
+      style={{ background: "var(--bg-primary)", overflow: "hidden", position: "relative" }}
     >
       <div className="section-container">
         {/* Header */}
@@ -82,203 +145,51 @@ export default function TechPartners() {
           </p>
         </div>
 
-        {/* Partner count badge */}
+        {/* Stat pill */}
         <div
           className={`reveal reveal-up ${isVisible ? "in-view" : ""}`}
-          style={{ textAlign: "center", marginBottom: "2.5rem", transitionDelay: "0.1s" }}
+          style={{ textAlign: "center", marginBottom: "3rem", transitionDelay: "0.1s" }}
         >
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", padding: "0.75rem 1.75rem", borderRadius: "100px", background: "var(--card-bg)", border: "1px solid var(--card-border)", boxShadow: "var(--shadow-sm)" }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "1.5rem",
+              padding: "0.75rem 1.75rem",
+              borderRadius: "100px",
+              background: "rgba(10,17,41,0.55)",
+              border: "1px solid rgba(212,175,55,0.28)",
+              backdropFilter: "blur(14px)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
+            }}
+          >
             {[
               { value: "18+",  label: "Technology Partners" },
               { value: "Gold", label: "Odoo Partner Tier" },
               { value: "5",    label: "Cloud Certifications" },
             ].map((s, i) => (
               <div key={s.label} style={{ display: "flex", alignItems: "center", gap: i > 0 ? "1.5rem" : 0 }}>
-                {i > 0 && <div style={{ width: 1, height: 24, background: "var(--card-border)" }} />}
+                {i > 0 && <div style={{ width: 1, height: 24, background: "rgba(212,175,55,0.25)" }} />}
                 <div style={{ textAlign: "center" }}>
-                  <div className="stat-number" style={{ fontSize: "1rem", fontWeight: 700, color: "var(--accent-primary)", lineHeight: 1 }}>{s.value}</div>
-                  <div style={{ fontSize: "0.625rem", color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.07em", marginTop: "0.15rem" }}>{s.label}</div>
+                  <div style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.125rem", fontStyle: "italic", fontWeight: 600, color: "var(--gold-100)", lineHeight: 1 }}>{s.value}</div>
+                  <div style={{ fontSize: "0.625rem", color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.18em", marginTop: "0.18rem", fontFamily: "var(--font-syne), sans-serif", fontWeight: 500 }}>{s.label}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Carousel */}
+        {/* Continuous marquee — pauses on hover */}
         <div
           className={`reveal reveal-up ${isVisible ? "in-view" : ""}`}
           style={{ transitionDelay: "0.2s" }}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
         >
-          <div style={{ overflow: "hidden", borderRadius: "1rem" }}>
-            <div
-              className="carousel-track"
-              style={{ transform: `translateX(-${slide * CARD_W}%)` }}
-            >
-              {partners.map((p, i) => {
-                const isHov = hovered === i;
-                const fontSize = p.abbr.length > 3 ? "0.5rem" : p.abbr.length > 2 ? "0.625rem" : p.abbr.length > 1 ? "0.8125rem" : "1.125rem";
-
-                return (
-                  <div
-                    key={p.name}
-                    style={{ width: `${CARD_W}%`, flexShrink: 0, padding: "0 0.625rem", boxSizing: "border-box" }}
-                  >
-                    <div
-                      onMouseEnter={() => setHovered(i)}
-                      onMouseLeave={() => setHovered(null)}
-                      style={{
-                        padding: "1.75rem 1rem",
-                        borderRadius: "1rem",
-                        background: isHov ? `${p.color}08` : "var(--card-bg)",
-                        border: `1px solid ${isHov ? `${p.color}35` : "var(--card-border)"}`,
-                        textAlign: "center",
-                        transition: "border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s",
-                        transform: isHov ? "translateY(-6px)" : "translateY(0)",
-                        boxShadow: isHov ? `0 16px 48px ${p.color}20` : "var(--shadow-sm)",
-                        cursor: "default",
-                      }}
-                    >
-                      {/* Logo mark */}
-                      <div
-                        style={{
-                          width: 56,
-                          height: 56,
-                          borderRadius: "0.875rem",
-                          background: isHov
-                            ? `linear-gradient(135deg, ${p.color}28, ${p.color}12)`
-                            : "var(--bg-tertiary)",
-                          border: `1px solid ${isHov ? `${p.color}40` : "var(--card-border)"}`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          margin: "0 auto 1rem",
-                          transition: "all 0.3s",
-                          position: "relative",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {/* Background glow when hovered */}
-                        {isHov && (
-                          <div style={{ position: "absolute", inset: 0, background: `radial-gradient(circle at center, ${p.color}20, transparent 70%)`, pointerEvents: "none" }} />
-                        )}
-                        <span
-                          style={{
-                            fontFamily: "var(--font-syne), sans-serif",
-                            fontWeight: 900,
-                            fontSize,
-                            color: isHov ? p.color : "var(--text-secondary)",
-                            letterSpacing: p.abbr.length > 2 ? "0.02em" : "0.05em",
-                            transition: "color 0.3s",
-                            position: "relative",
-                            zIndex: 1,
-                            textTransform: "lowercase" in p ? "none" : "none",
-                          }}
-                        >
-                          {p.abbr}
-                        </span>
-                      </div>
-
-                      <div style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "0.8125rem", color: "var(--text-primary)", lineHeight: 1.3, marginBottom: "0.25rem" }}>
-                        {p.name}
-                      </div>
-
-                      <div style={{ fontSize: "0.625rem", color: "var(--text-tertiary)", marginBottom: "0.625rem", letterSpacing: "0.02em" }}>
-                        {p.description}
-                      </div>
-
-                      <div style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", padding: "0.2rem 0.5rem", borderRadius: "100px", background: `${p.color}12`, border: `1px solid ${p.color}22` }}>
-                        <div style={{ width: 5, height: 5, borderRadius: "50%", background: p.color }} />
-                        <span style={{ fontSize: "0.5625rem", color: p.color, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                          {p.tier}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Controls */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.25rem", marginTop: "2rem" }}>
-            <button
-              onClick={prev}
-              aria-label="Previous partners"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                background: "var(--card-bg)",
-                border: "1px solid var(--card-border)",
-                color: "var(--text-secondary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                boxShadow: "var(--shadow-sm)",
-                transition: "background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s",
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget;
-                el.style.background = "rgba(37,99,235,0.08)";
-                el.style.borderColor = "rgba(37,99,235,0.3)";
-                el.style.color = "var(--accent-primary)";
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget;
-                el.style.background = "var(--card-bg)";
-                el.style.borderColor = "var(--card-border)";
-                el.style.color = "var(--text-secondary)";
-              }}
-            >
-              <ChevronLeft size={18} />
-            </button>
-
-            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-              {Array.from({ length: MAX_SLIDE + 1 }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSlide(i)}
-                  className={`carousel-dot ${slide === i ? "active" : ""}`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
+          <div className="partner-marquee marquee-fade-edges">
+            <div className="partner-track">
+              {loop.map((p, i) => (
+                <PartnerCard key={`${p.slug}-${i}`} p={p} />
               ))}
             </div>
-
-            <button
-              onClick={next}
-              aria-label="Next partners"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                background: "var(--card-bg)",
-                border: "1px solid var(--card-border)",
-                color: "var(--text-secondary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                boxShadow: "var(--shadow-sm)",
-                transition: "background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s",
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget;
-                el.style.background = "rgba(37,99,235,0.08)";
-                el.style.borderColor = "rgba(37,99,235,0.3)";
-                el.style.color = "var(--accent-primary)";
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget;
-                el.style.background = "var(--card-bg)";
-                el.style.borderColor = "var(--card-border)";
-                el.style.color = "var(--text-secondary)";
-              }}
-            >
-              <ChevronRight size={18} />
-            </button>
           </div>
         </div>
 
@@ -294,9 +205,161 @@ export default function TechPartners() {
       </div>
 
       <style>{`
-        @media (max-width: 1024px) { .carousel-track > div { width: ${100 / 4}% !important; } }
-        @media (max-width: 768px)  { .carousel-track > div { width: ${100 / 3}% !important; } }
-        @media (max-width: 480px)  { .carousel-track > div { width: 50% !important; } }
+        .partner-marquee {
+          overflow: hidden;
+          padding: 1rem 0 1.25rem;
+        }
+        .partner-track {
+          display: flex;
+          gap: 1rem;
+          width: max-content;
+          animation: partnerMarquee 60s linear infinite;
+          will-change: transform;
+        }
+        .partner-track:hover { animation-play-state: paused; }
+        @keyframes partnerMarquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+
+        .partner-card {
+          flex-shrink: 0;
+          width: 220px;
+          padding: 1.5rem 1.25rem 1.4rem;
+          border-radius: 1rem;
+          background:
+            linear-gradient(160deg, rgba(243,230,176,0.32) 0%, rgba(212,175,55,0.22) 50%, rgba(168,134,42,0.18) 100%);
+          border: 1px solid rgba(243,230,176,0.55);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+          text-align: center;
+          transition: border-color 0.5s ease, transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.5s ease, background 0.5s ease;
+          box-shadow: 0 10px 32px rgba(0,0,0,0.4), 0 0 22px rgba(212,175,55,0.18), inset 0 1px 0 rgba(255,251,234,0.18);
+          position: relative;
+          overflow: hidden;
+        }
+        .partner-card::before {
+          content: "";
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: linear-gradient(120deg, transparent 35%, rgba(255,251,234,0.32) 50%, transparent 65%);
+          background-size: 250% 100%;
+          animation: partnerShimmer 5.5s ease-in-out infinite;
+          pointer-events: none;
+        }
+        .partner-card:nth-child(3n)::before  { animation-delay: 1.4s; }
+        .partner-card:nth-child(3n+1)::before{ animation-delay: 2.8s; }
+        .partner-card:hover {
+          border-color: rgba(255,251,234,0.85);
+          transform: translateY(-8px) scale(1.03);
+          box-shadow: 0 20px 56px rgba(0,0,0,0.5), 0 0 36px rgba(243,230,176,0.5), inset 0 1px 0 rgba(255,251,234,0.3);
+          background:
+            linear-gradient(160deg, rgba(243,230,176,0.45) 0%, rgba(212,175,55,0.32) 50%, rgba(168,134,42,0.28) 100%);
+        }
+
+        .partner-logo-wrap {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 0.95rem;
+          border-radius: 0.875rem;
+          /* Cream/ivory tile so each brand's official colour stays vibrant */
+          background: linear-gradient(135deg, #fffdf3 0%, #faf2d8 100%);
+          border: 1px solid rgba(168,134,42,0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 14px rgba(168,134,42,0.32), inset 0 1px 0 rgba(255,255,255,0.7);
+          transition: transform 0.6s cubic-bezier(.22,1,.36,1), box-shadow 0.5s ease;
+          animation: partnerLogoFloat 4.5s ease-in-out infinite;
+        }
+        .partner-card:nth-child(2n) .partner-logo-wrap { animation-delay: 0.6s; }
+        .partner-card:nth-child(3n) .partner-logo-wrap { animation-delay: 1.2s; }
+        .partner-card:hover .partner-logo-wrap {
+          transform: scale(1.12) rotate(6deg);
+          box-shadow: 0 6px 22px rgba(168,134,42,0.5), inset 0 1px 0 rgba(255,255,255,0.85);
+        }
+        .partner-logo {
+          max-width: 44px;
+          max-height: 38px;
+          object-fit: contain;
+          transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+        }
+        .partner-card:hover .partner-logo {
+          transform: scale(1.08);
+        }
+        .partner-logo-fallback {
+          font-family: var(--font-syne), sans-serif;
+          font-weight: 800;
+          font-size: 0.875rem;
+          color: #6b4d0a;
+          letter-spacing: 0.02em;
+          text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+          padding: 0 0.25rem;
+          text-align: center;
+          line-height: 1;
+        }
+        .partner-card:hover .partner-logo-fallback {
+          color: #4a3505;
+        }
+
+        .partner-name {
+          font-family: var(--font-syne), sans-serif;
+          font-weight: 700;
+          font-size: 0.875rem;
+          color: #fffbea;
+          letter-spacing: -0.005em;
+          line-height: 1.25;
+          margin-bottom: 0.3rem;
+          text-shadow: 0 1px 12px rgba(2,4,12,0.55);
+        }
+        .partner-desc {
+          font-size: 0.6875rem;
+          color: rgba(255,251,234,0.78);
+          letter-spacing: 0.04em;
+          margin-bottom: 0.75rem;
+          font-family: var(--font-syne), sans-serif;
+          text-shadow: 0 1px 8px rgba(2,4,12,0.5);
+        }
+        .partner-tier {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.22rem 0.6rem;
+          border-radius: 100px;
+          background: rgba(2,4,12,0.55);
+          border: 1px solid rgba(255,251,234,0.4);
+          font-size: 0.5625rem;
+          font-weight: 700;
+          color: #fffbea;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          font-family: var(--font-syne), sans-serif;
+          backdrop-filter: blur(6px);
+        }
+        .partner-tier-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #fffbea;
+          box-shadow: 0 0 6px #fffbea;
+          animation: heroPulse 2.4s ease infinite;
+        }
+
+        @keyframes partnerShimmer {
+          0%   { background-position: 200% 0; }
+          50%  { background-position: -200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        @keyframes partnerLogoFloat {
+          0%, 100% { transform: translateY(0); }
+          50%      { transform: translateY(-4px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .partner-track,
+          .partner-card::before,
+          .partner-logo-wrap { animation: none !important; }
+        }
       `}</style>
     </section>
   );

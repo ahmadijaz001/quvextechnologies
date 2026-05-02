@@ -917,6 +917,8 @@ select.lux-input option { background: var(--bg-secondary); color: var(--text-pri
 }
 .cosmic-page > section {
   background: transparent !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
   position: relative;
   z-index: 1;
 }
@@ -925,18 +927,6 @@ select.lux-input option { background: var(--bg-secondary); color: var(--text-pri
 .cosmic-page > section > div[aria-hidden="true"][style*="ellipse"],
 .cosmic-page > section > div[aria-hidden="true"][style*="radial-gradient"] {
   opacity: 0.35;
-}
-/* Gold gradient divider above each section after the first */
-.cosmic-page > section + section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.35) 50%, transparent 100%);
-  pointer-events: none;
-  z-index: 3;
 }
 
 @media (prefers-reduced-motion: reduce) {

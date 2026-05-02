@@ -80,7 +80,7 @@ export default function Header() {
             }}
           >
             <Image
-              src="/Logo.png"
+              src="/AkrossLogo.png"
               alt="aKross"
               width={36}
               height={36}
