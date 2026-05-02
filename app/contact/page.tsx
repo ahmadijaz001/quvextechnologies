@@ -4,9 +4,9 @@ import ContactForm from "@/components/shared/ContactForm";
 import Reveal from "@/components/shared/Reveal";
 
 const contactInfo = [
-  { Icon: MapPin,  label: "Address",        value: "Dubai Internet City, Building 1, Floor 3\nDubai, United Arab Emirates" },
-  { Icon: Phone,   label: "Phone",          value: "+971-XX-XXX-XXXX" },
-  { Icon: Mail,    label: "Email",          value: "hello@quvex.ae" },
+  { Icon: MapPin,  label: "Address",        value: "Sheikh Zayed Road, Tower One\nDubai, United Arab Emirates" },
+  { Icon: Phone,   label: "Phone",          value: "+971-4-000-0000" },
+  { Icon: Mail,    label: "Email",          value: "hello@akross.ae" },
   { Icon: Clock,   label: "Business Hours", value: "Mon–Fri: 9:00 AM – 6:00 PM GST\nSat: 10:00 AM – 2:00 PM GST" },
 ];
 
@@ -101,7 +101,7 @@ export default function ContactPage() {
 
                 {/* WhatsApp CTA */}
                 <a
-                  href="https://wa.me/971500000000"
+                  href="https://wa.me/971559300437?text=Hello%20aKross%2C%20I%20would%20like%20to%20discuss%20a%20project."
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{

@@ -3,9 +3,9 @@ import CategoryPageTemplate from "@/components/services/CategoryPageTemplate";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI, Automation & Data Solutions Dubai | Quvex Technologies",
+  title: "AI, Automation & Data Solutions Dubai | aKross Information Technology",
   description: "AI consulting, generative AI, RPA, chatbots, business intelligence — enterprise AI solutions built for UAE businesses.",
-  alternates: { canonical: "https://quvex.ae/services/ai-automation" },
+  alternates: { canonical: "https://akross.ae/services/ai-automation" },
 };
 
 export default function AIAutomationPage() {

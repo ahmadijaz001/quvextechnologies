@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const ind = industryData[slug];
   if (!ind) return { title: "Not Found" };
-  return { title: `${ind.name} IT Solutions Dubai | Quvex Technologies`, description: ind.desc };
+  return { title: `${ind.name} IT Solutions Dubai | aKross Information Technology`, description: ind.desc, alternates: { canonical: `https://akross.ae/industries/${slug}` } };
 }
 
 export default async function IndustryPage({ params }: Props) {

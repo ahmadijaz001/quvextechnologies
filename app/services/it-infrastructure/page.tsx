@@ -3,9 +3,9 @@ import CategoryPageTemplate from "@/components/services/CategoryPageTemplate";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IT Infrastructure & Managed Services Dubai | Quvex Technologies",
+  title: "IT Infrastructure & Managed Services Dubai | aKross Information Technology",
   description: "Cloud, cybersecurity, networking, 24/7 managed IT, CCTV, disaster recovery — comprehensive IT infrastructure solutions for UAE businesses.",
-  alternates: { canonical: "https://quvex.ae/services/it-infrastructure" },
+  alternates: { canonical: "https://akross.ae/services/it-infrastructure" },
 };
 
 export default function ITInfrastructurePage() {

@@ -4,7 +4,7 @@ import CTABanner from "@/components/sections/CTABanner";
 import { CheckCircle2 } from "lucide-react";
 
 const timeline = [
-  { year: "2018", title: "Founded in Dubai", desc: "Quvex Technologies established with a focus on Odoo ERP implementation for UAE SMEs." },
+  { year: "2018", title: "Founded in Dubai", desc: "aKross Information Technology established with a focus on Odoo ERP implementation for UAE SMEs." },
   { year: "2019", title: "Gold Odoo Partner", desc: "Achieved Gold Partner status with Odoo, the fastest path in our region's history." },
   { year: "2020", title: "Expanded to Full IT Services", desc: "Launched cybersecurity, cloud, and managed IT services divisions to meet client demand." },
   { year: "2021", title: "100 Clients Milestone", desc: "Crossed 100 active clients across UAE, Saudi Arabia, Qatar, and Kuwait." },
@@ -47,10 +47,10 @@ export default function AboutPage() {
           <p className="label-tag" style={{ marginBottom: "1rem" }}>Our Story</p>
           <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
             The Story Behind{" "}
-            <span className="gradient-text">Quvex Technologies</span>
+            <span className="gradient-text">aKross Information Technology</span>
           </h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "660px", margin: "0 auto" }}>
-            We built Quvex because we experienced firsthand the gap between what businesses need and what most IT vendors deliver. Since 2018, we&apos;ve been closing that gap — one successful project at a time.
+            We built aKross because we experienced firsthand the gap between what businesses need and what most IT vendors deliver. Since 2018, we&apos;ve been closing that gap — one successful engagement at a time.
           </p>
         </div>
       </section>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Quvex Technologies",
-  description: "Quvex Technologies privacy policy — how we collect, use, and protect your personal data in compliance with UAE PDPL.",
+  title: "Privacy Policy | aKross Information Technology",
+  description: "aKross Information Technology privacy policy — how we collect, use, and protect your personal data in compliance with UAE PDPL.",
 };
 
 export default function PrivacyPage() {
@@ -18,9 +18,9 @@ export default function PrivacyPage() {
           { title: "2. How We Use Your Information", content: "To respond to inquiries and provide our services. To send you relevant communications (with your consent). To improve our website and services. To comply with legal obligations under UAE law. To analyze website usage and optimize performance." },
           { title: "3. Data Storage & UAE Compliance", content: "We comply with the UAE Personal Data Protection Law (Federal Decree-Law No. 45 of 2021). Your data may be stored on servers in the UAE, EU, or US (with appropriate safeguards). We retain data for as long as necessary to provide services or as required by law." },
           { title: "4. Cookies", content: "We use essential cookies (required for the website to function), analytics cookies (Google Analytics — with your consent), and marketing cookies (Meta Pixel, LinkedIn — with your consent). You can manage cookie preferences via our cookie banner." },
-          { title: "5. Your Rights", content: "You have the right to access, correct, delete, or restrict processing of your personal data. You may also withdraw consent at any time. To exercise these rights, contact: privacy@quvex.ae." },
+          { title: "5. Your Rights", content: "You have the right to access, correct, delete, or restrict processing of your personal data. You may also withdraw consent at any time. To exercise these rights, contact: privacy@akross.ae." },
           { title: "6. Third-Party Sharing", content: "We do not sell your personal data. We share data with service providers (hosting, email, CRM) only as necessary to deliver our services, and with legal authorities when required by law." },
-          { title: "7. Contact", content: "Quvex Technologies LLC\nDubai Internet City, Dubai, UAE\nprivacy@quvex.ae\n+971-XX-XXX-XXXX" },
+          { title: "7. Contact", content: "aKross Information Technology LLC\nSheikh Zayed Road, Dubai, UAE\nprivacy@akross.ae\n+971-4-000-0000" },
         ].map(section => (
           <div key={section.title} style={{ marginBottom: "2.5rem" }}>
             <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1.125rem", color: "var(--text-primary)", marginBottom: "0.875rem" }}>{section.title}</h2>

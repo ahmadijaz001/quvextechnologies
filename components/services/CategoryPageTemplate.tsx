@@ -1,9 +1,13 @@
 "use client";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ChevronRight } from "lucide-react";
 import ServiceGrid from "./ServiceGrid";
 import CTABanner from "@/components/sections/CTABanner";
 import type { ServiceCategory } from "@/lib/services-data";
+
+const Service3DBackdrop = dynamic(() => import("./Service3DBackdrop"), { ssr: false });
+const Service3DIcon = dynamic(() => import("./Service3DIcon"), { ssr: false });
 
 interface CategoryPageTemplateProps {
   category: ServiceCategory;
@@ -56,13 +60,20 @@ export default function CategoryPageTemplate({ category }: CategoryPageTemplateP
     <>
       {/* Hero */}
       <section
+        className="svc-hero"
         style={{
           paddingTop: "clamp(6rem, 12vw, 9rem)",
           paddingBottom: "clamp(3rem, 6vw, 5rem)",
           background: "var(--bg-primary)",
           borderBottom: "1px solid var(--border)",
+          ["--accent" as never]: category.color,
         }}
       >
+        <Service3DBackdrop accentColor={category.color} density="low" scale={0.55} />
+
+        <div aria-hidden="true" className="svc-hero-orb" style={{ top: "-20%", right: "-8%", width: "55vw", height: "55vw", maxWidth: 640, maxHeight: 640, background: `radial-gradient(circle, ${category.color}14 0%, transparent 65%)`, animationDuration: "10s" }} />
+        <div aria-hidden="true" className="svc-hero-orb" style={{ bottom: "-30%", left: "-5%", width: "40vw", height: "40vw", maxWidth: 460, maxHeight: 460, background: "radial-gradient(circle, rgba(123,47,255,0.10) 0%, transparent 65%)", animationDuration: "12s", animationDelay: "1.4s" }} />
+
         <div className="section-container">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginBottom: "2rem" }}>
@@ -84,26 +95,42 @@ export default function CategoryPageTemplate({ category }: CategoryPageTemplateP
             ))}
           </nav>
 
-          <p className="label-tag" style={{ marginBottom: "1rem" }}>Service Category</p>
-          <h1
-            className="headline-section"
-            style={{ marginBottom: "1.25rem", maxWidth: "20ch" }}
-          >
-            {category.name}
-          </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "640px", marginBottom: "2rem" }}>
-            {category.description}
-          </p>
+          <div className="cat-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "3rem", alignItems: "center" }}>
+            <div>
+              <p className="label-tag" style={{ marginBottom: "1rem" }}>Service Category</p>
+              <h1
+                className="headline-section"
+                style={{ marginBottom: "1.25rem", maxWidth: "20ch" }}
+              >
+                {category.name}
+              </h1>
+              <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "640px", marginBottom: "2rem" }}>
+                {category.description}
+              </p>
 
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <Link href="/book-consultation" className="btn-primary">
-              Book a Free Consultation
-            </Link>
-            <Link href="/contact" className="btn-outline">
-              Contact Us
-            </Link>
+              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <Link href="/book-consultation" className="btn-primary">
+                  Book a Free Consultation
+                </Link>
+                <Link href="/contact" className="btn-outline">
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+
+            <div className="cat-hero-icon" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Service3DIcon category={category.slug} accentColor={category.color} size={220} />
+            </div>
           </div>
         </div>
+
+        <style>{`
+          @media (max-width: 900px) {
+            .cat-hero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+            .cat-hero-icon { order: -1; }
+            .cat-hero-icon > div { width: 160px !important; height: 160px !important; }
+          }
+        `}</style>
       </section>
 
       {/* Services grid */}

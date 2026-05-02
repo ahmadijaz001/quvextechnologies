@@ -18,9 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = category.services.find(s => s.slug === serviceSlug);
   if (!service) return { title: "Service Not Found" };
   return {
-    title: `${service.name} Dubai | Quvex Technologies`,
+    title: `${service.name} Dubai | aKross Information Technology`,
     description: service.overview.slice(0, 160),
-    alternates: { canonical: `https://quvex.ae/services/erp/${serviceSlug}` },
+    alternates: { canonical: `https://akross.ae/services/erp/${serviceSlug}` },
   };
 }
 

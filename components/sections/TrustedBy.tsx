@@ -104,26 +104,27 @@ function BrandCard({ name, sector, initials, color, bg, shape }: typeof brands[n
       style={{
         flexShrink: 0,
         margin: "0 0.5rem",
-        padding: "0.75rem 1.125rem",
-        borderRadius: "0.875rem",
-        background: "var(--card-bg)",
-        border: "1px solid var(--card-border)",
+        padding: "0.875rem 1.25rem",
+        borderRadius: "10px",
+        background: "rgba(10,17,41,0.55)",
+        border: "1px solid rgba(212,175,55,0.18)",
+        backdropFilter: "blur(14px)",
         display: "flex",
         alignItems: "center",
-        gap: "0.75rem",
+        gap: "0.875rem",
         whiteSpace: "nowrap",
-        transition: "border-color 0.3s, box-shadow 0.3s, transform 0.3s",
+        transition: "border-color 0.4s, box-shadow 0.4s, transform 0.4s",
         cursor: "default",
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = `${color}35`;
-        el.style.boxShadow = `0 4px 20px ${color}12`;
-        el.style.transform = "translateY(-2px)";
+        el.style.borderColor = "rgba(212,175,55,0.55)";
+        el.style.boxShadow = "0 8px 32px rgba(212,175,55,0.18)";
+        el.style.transform = "translateY(-3px)";
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = "var(--card-border)";
+        el.style.borderColor = "rgba(212,175,55,0.18)";
         el.style.boxShadow = "none";
         el.style.transform = "translateY(0)";
       }}
@@ -152,8 +153,8 @@ function BrandCard({ name, sector, initials, color, bg, shape }: typeof brands[n
 
 /* ─── Mini stats ─────────────────────────────────────────────────────────── */
 const miniStats = [
-  { value: "150+",     label: "Active Clients" },
-  { value: "12+",      label: "Industries" },
+  { value: "200+",     label: "Active Clients" },
+  { value: "14+",      label: "Industries" },
   { value: "GCC-Wide", label: "Regional Presence" },
   { value: "98%",      label: "Client Retention" },
 ];
@@ -167,10 +168,10 @@ export default function TrustedBy() {
     <section
       aria-label="Trusted by industry leaders across UAE and GCC"
       style={{
-        padding: "5rem 0 4.5rem",
-        background: "var(--bg-secondary)",
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
+        padding: "6rem 0 5rem",
+        background: "linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%)",
+        borderTop: "1px solid rgba(212,175,55,0.15)",
+        borderBottom: "1px solid rgba(212,175,55,0.15)",
         overflow: "hidden",
         position: "relative",
       }}
@@ -178,46 +179,43 @@ export default function TrustedBy() {
       {/* Subtle dot texture */}
       <div aria-hidden="true" style={{
         position: "absolute", inset: 0, pointerEvents: "none",
-        backgroundImage: "radial-gradient(rgba(37,99,235,0.04) 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
+        backgroundImage: "radial-gradient(rgba(212,175,55,0.06) 1px, transparent 1px)",
+        backgroundSize: "60px 60px",
       }} />
 
       {/* Header */}
       <div style={{
-        textAlign: "center", marginBottom: "3rem",
+        textAlign: "center", marginBottom: "3.5rem",
         padding: "0 clamp(1.5rem, 5vw, 4rem)",
         position: "relative", zIndex: 1,
       }}>
-        <p className="label-tag" style={{ marginBottom: "0.75rem" }}>Trusted by Industry Leaders</p>
-        <h2 style={{
-          fontFamily: "var(--font-syne), sans-serif",
-          fontWeight: 700, fontSize: "clamp(1.375rem, 3vw, 2rem)",
-          color: "var(--text-primary)", marginBottom: "0.875rem", lineHeight: 1.25,
-        }}>
-          Powering the UAE &amp; GCC&apos;s Most{" "}
-          <span className="gradient-text">Respected Organisations</span>
+        <p className="label-tag" style={{ marginBottom: "1rem" }}>Trusted by Visionaries</p>
+        <h2 className="headline-section" style={{ marginBottom: "1rem" }}>
+          Engineering with the UAE&apos;s most{" "}
+          <span className="gold-text" style={{ fontStyle: "italic" }}>respected institutions.</span>
         </h2>
         <p style={{
-          fontSize: "0.9375rem", color: "var(--text-secondary)",
-          maxWidth: "520px", margin: "0 auto 2rem", lineHeight: 1.7,
+          fontSize: "1rem", color: "var(--text-secondary)",
+          maxWidth: "620px", margin: "0 auto 2.25rem", lineHeight: 1.7,
         }}>
-          From Fortune 500 multinationals to fast-scaling UAE startups — leading organisations
-          across the region trust Quvex Technologies to power their most critical systems.
+          From Fortune-class multinationals to sovereign entities — the GCC&apos;s most discerning
+          organisations entrust aKross with their most strategic technology.
         </p>
 
         {/* Mini stats */}
-        <div style={{ display: "inline-flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
+        <div style={{ display: "inline-flex", gap: "0.875rem", flexWrap: "wrap", justifyContent: "center" }}>
           {miniStats.map(s => (
             <div key={s.label} style={{
               display: "flex", flexDirection: "column", alignItems: "center",
-              padding: "0.625rem 1.25rem", borderRadius: "0.625rem",
-              background: "var(--card-bg)", border: "1px solid var(--card-border)",
-              boxShadow: "var(--shadow-sm)",
+              padding: "0.875rem 1.5rem", borderRadius: "10px",
+              background: "rgba(10,17,41,0.5)", border: "1px solid rgba(212,175,55,0.22)",
+              backdropFilter: "blur(12px)",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
             }}>
-              <div className="stat-number" style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--accent-primary)", lineHeight: 1 }}>
+              <div className="stat-number" style={{ fontSize: "1.5rem", lineHeight: 1 }}>
                 {s.value}
               </div>
-              <div style={{ fontSize: "0.6875rem", color: "var(--text-tertiary)", marginTop: "0.25rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              <div style={{ fontSize: "0.625rem", color: "var(--text-tertiary)", marginTop: "0.375rem", textTransform: "uppercase", letterSpacing: "0.18em", fontFamily: "var(--font-syne), sans-serif", fontWeight: 500 }}>
                 {s.label}
               </div>
             </div>
@@ -240,9 +238,9 @@ export default function TrustedBy() {
       </div>
 
       {/* Bottom note */}
-      <div style={{ textAlign: "center", marginTop: "2.75rem", position: "relative", zIndex: 1 }}>
-        <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)" }}>
-          Join 150+ UAE and GCC organisations already working with Quvex Technologies
+      <div style={{ textAlign: "center", marginTop: "3rem", position: "relative", zIndex: 1 }}>
+        <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)", letterSpacing: "0.04em" }}>
+          Join 200+ UAE and GCC institutions trusting <span style={{ color: "var(--gold-300)", fontWeight: 600 }}>aKross</span> with their digital sovereignty.
         </p>
       </div>
     </section>

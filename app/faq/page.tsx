@@ -2,9 +2,9 @@ import CTABanner from "@/components/sections/CTABanner";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions | Quvex Technologies",
-  description: "Answers to common questions about Quvex Technologies services, ERP implementation, pricing, timelines, and support.",
-  alternates: { canonical: "https://quvex.ae/faq" },
+  title: "Frequently Asked Questions | aKross Information Technology",
+  description: "Answers to common questions about aKross Information Technology services, ERP implementation, pricing, timelines, and support.",
+  alternates: { canonical: "https://akross.ae/faq" },
 };
 
 const categories = [
@@ -12,7 +12,7 @@ const categories = [
     name: "General",
     color: "#00d4ff",
     faqs: [
-      { q: "What makes Quvex Technologies different from other IT companies in Dubai?", a: "Three things: depth, accountability, and UAE-first thinking. We don't just implement software — we understand your business, design solutions that fit your actual workflows (not generic templates), and stay accountable after go-live. We're also the only full-service IT partner in the UAE that combines ERP, cybersecurity, AI, web development, and digital marketing under one roof with genuine expertise in each." },
+      { q: "What makes aKross different from other IT companies in Dubai?", a: "Three things: depth, accountability, and UAE-first thinking. We don't just implement software — we understand your business, design solutions that fit your actual workflows (not generic templates), and stay accountable after go-live. We're also the only full-service IT partner in the UAE that combines ERP, cybersecurity, AI, web development, and digital marketing under one roof with genuine expertise in each." },
       { q: "What industries do you specialize in?", a: "We have deep expertise in 12 industries: Real Estate & Property, Healthcare, Retail & eCommerce, F&B & Hospitality, Government, Legal & Professional Services, Education, Oil & Gas, Logistics & Supply Chain, Finance & Banking, Construction, and Manufacturing." },
       { q: "Do you work with startups or only enterprises?", a: "Both. We've delivered projects for pre-revenue startups and for enterprises with 5,000+ employees. Our approach scales — we have streamlined packages for SMEs and structured programs for enterprise digital transformation." },
       { q: "Are your services available outside of Dubai / UAE?", a: "Yes. While our headquarters is in Dubai, we serve clients across Saudi Arabia, Qatar, Kuwait, Oman, Bahrain, and Egypt. We also have clients in the UK and Europe who use us for UAE market expansion projects." },
@@ -42,7 +42,7 @@ const categories = [
     faqs: [
       { q: "What support do you offer after project go-live?", a: "All projects include a 30-day hypercare period post-go-live where our team is on high alert for any issues. After that, we offer SLA-backed support packages: Standard (8 business hour response), Professional (4-hour response), and Enterprise (1-hour response with dedicated account manager). We also offer annual managed service contracts." },
       { q: "Do you offer 24/7 IT support?", a: "Yes, for our IT Infrastructure and Managed Services clients. Our NOC (Network Operations Center) operates 24/7/365 with proactive monitoring — we typically know about an issue before you do." },
-      { q: "Can we switch to Quvex if we had a bad experience with another IT company?", a: "Absolutely — this is actually a significant portion of our new clients. We specialize in rescuing failed or stalled implementations and taking over managed services from underperforming vendors. We'll do an honest assessment of where things stand before committing to fix it." },
+      { q: "Can we switch to aKross if we had a bad experience with another IT company?", a: "Absolutely — this is actually a significant portion of our new clients. We specialize in rescuing failed or stalled implementations and taking over managed services from underperforming vendors. We'll do an honest assessment of where things stand before committing to fix it." },
     ],
   },
 ];

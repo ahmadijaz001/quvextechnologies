@@ -39,7 +39,7 @@ export default function CareersPage() {
       {/* Benefits */}
       <section className="section-padding" style={{ background: "var(--bg-secondary)", borderBottom: "1px solid var(--border)" }}>
         <div className="section-container">
-          <p className="label-tag" style={{ marginBottom: "0.75rem" }}>Why Quvex?</p>
+          <p className="label-tag" style={{ marginBottom: "0.75rem" }}>Why aKross?</p>
           <h2 className="headline-section" style={{ marginBottom: "2.5rem" }}>Benefits & <span className="gradient-text">Culture</span></h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
             {benefits.map(b => (

@@ -26,7 +26,7 @@ export default function BookConsultationPage() {
           </div>
           <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.75rem", color: "var(--text-primary)", marginBottom: "1rem" }}>Consultation Request Received!</h2>
           <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: "2rem" }}>
-            Thank you, {form.name}! A senior Quvex consultant will review your requirements and contact you within 2 business hours to schedule your free 30-minute consultation.
+            Thank you, {form.name}! A senior aKross consultant will review your requirements and contact you within 2 business hours to schedule your complimentary 30-minute consultation.
           </p>
           <p style={{ fontSize: "0.875rem", color: "var(--text-tertiary)" }}>Check your inbox ({form.email}) for a confirmation email.</p>
         </div>

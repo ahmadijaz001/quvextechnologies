@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { serviceCategories } from "@/lib/services-data";
 
-const BASE_URL = "https://quvex.ae";
+const BASE_URL = "https://akross.ae";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [

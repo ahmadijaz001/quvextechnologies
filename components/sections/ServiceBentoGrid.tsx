@@ -6,56 +6,44 @@ import { useInView } from "@/hooks/useInView";
 const pillars = [
   {
     icon: Database,
-    name: "ERP & Business Solutions",
-    tagline: "Odoo, SAP, Dynamics, Zoho — we implement and customize the world's best ERPs for UAE businesses.",
+    name: "Enterprise ERP",
+    tagline: "Sovereign-grade ERP transformation. Odoo, SAP, Microsoft Dynamics — implemented with precision, governed with mastery.",
     href: "/services/erp",
-    color: "#00d4ff",
-    span: "col-span-2",
     gridArea: "1 / 1 / 2 / 3",
   },
   {
     icon: Globe,
-    name: "Web & eCommerce Development",
-    tagline: "Custom websites, Shopify Plus, headless commerce — built to convert.",
+    name: "Web & eCommerce",
+    tagline: "Couture digital experiences. Headless commerce, conversion-engineered platforms.",
     href: "/services/web-ecommerce",
-    color: "#7b2fff",
-    span: "",
     gridArea: "1 / 3 / 2 / 5",
   },
   {
     icon: Megaphone,
-    name: "Digital Marketing & Creative",
-    tagline: "SEO, Google Ads, social media, branding — full-funnel growth.",
+    name: "Digital Marketing",
+    tagline: "Strategic growth orchestration — SEO, paid media, brand storytelling.",
     href: "/services/digital-marketing",
-    color: "#c9a44c",
-    span: "",
     gridArea: "1 / 5 / 2 / 7",
   },
   {
     icon: Bot,
-    name: "AI, Automation & Data",
-    tagline: "Generative AI, chatbots, RPA, and BI — intelligence built into every workflow.",
+    name: "AI & Automation",
+    tagline: "Generative AI, autonomous agents, RPA, BI — intelligence woven into every workflow.",
     href: "/services/ai-automation",
-    color: "#00e68a",
-    span: "col-span-2",
     gridArea: "2 / 1 / 3 / 3",
   },
   {
     icon: Server,
-    name: "IT Infrastructure & Managed Services",
-    tagline: "Cloud, networking, cybersecurity, 24/7 managed IT — your ops, guaranteed.",
+    name: "Cloud & IT Infrastructure",
+    tagline: "Sovereign cloud, zero-trust networks, 24/7 managed services — operational continuity, guaranteed.",
     href: "/services/it-infrastructure",
-    color: "#0066ff",
-    span: "col-span-2",
     gridArea: "2 / 3 / 3 / 5",
   },
   {
     icon: Smartphone,
-    name: "Mobile App Development",
-    tagline: "iOS, Android, React Native, Flutter — apps that users love.",
+    name: "Mobile Applications",
+    tagline: "Native iOS, Android, React Native, Flutter — apps engineered for executive audiences.",
     href: "/services/mobile-apps",
-    color: "#ff4d6a",
-    span: "",
     gridArea: "2 / 5 / 3 / 7",
   },
 ];
@@ -67,34 +55,62 @@ export default function ServiceBentoGrid() {
       ref={ref}
       aria-labelledby="services-heading"
       className="section-padding"
-      style={{ background: "var(--bg-primary)" }}
+      style={{ background: "var(--bg-primary)", position: "relative", overflow: "hidden" }}
     >
+      {/* Ambient glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "10%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 800,
+          height: 400,
+          background: "radial-gradient(ellipse, rgba(212,175,55,0.06), transparent 70%)",
+          filter: "blur(40px)",
+          pointerEvents: "none",
+        }}
+      />
+
       <div className="section-container">
         {/* Header */}
-        <div className={`reveal reveal-up ${isVisible ? "in-view" : ""}`} style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "3rem", flexWrap: "wrap", gap: "1.5rem" }}>
+        <div
+          className={`reveal reveal-up ${isVisible ? "in-view" : ""}`}
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            marginBottom: "4rem",
+            flexWrap: "wrap",
+            gap: "1.5rem",
+          }}
+        >
           <div>
-            <p className="label-tag" style={{ marginBottom: "0.75rem" }}>What We Do</p>
-            <h2 id="services-heading" className="headline-section" style={{ maxWidth: "18ch" }}>
-              Six Pillars of Digital{" "}
-              <span className="gradient-text">Transformation</span>
+            <p className="label-tag" style={{ marginBottom: "1rem" }}>The aKross Practice</p>
+            <h2 id="services-heading" className="headline-section" style={{ maxWidth: "20ch" }}>
+              Six pillars of{" "}
+              <span className="gold-text" style={{ fontStyle: "italic" }}>enterprise mastery.</span>
             </h2>
           </div>
           <Link
             href="/services"
+            className="link-gold"
             style={{
-              display: "flex",
+              display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              color: "var(--accent-primary)",
-              textDecoration: "none",
-              fontSize: "0.9375rem",
-              fontWeight: 500,
-              borderBottom: "1px solid rgba(0,212,255,0.3)",
-              paddingBottom: "2px",
+              fontSize: "0.875rem",
+              fontFamily: "var(--font-syne), sans-serif",
+              fontWeight: 600,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
               whiteSpace: "nowrap",
+              border: "none",
+              paddingBottom: 0,
             }}
           >
-            View All Services <ArrowUpRight size={16} />
+            View Full Practice <ArrowUpRight size={14} />
           </Link>
         </div>
 
@@ -109,56 +125,42 @@ export default function ServiceBentoGrid() {
                 gridArea: pillar.gridArea,
                 display: "flex",
                 flexDirection: "column",
-                padding: "2rem",
+                padding: "2.25rem",
                 textDecoration: "none",
-                minHeight: 200,
+                minHeight: 240,
                 position: "relative",
                 overflow: "hidden",
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = `${pillar.color}40`;
-                el.style.boxShadow = `0 0 40px ${pillar.color}10`;
-                el.style.background = `${pillar.color}05`;
-                const icon = el.querySelector(".pillar-icon") as HTMLElement;
-                if (icon) { icon.style.color = pillar.color; icon.style.background = `${pillar.color}20`; }
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--border)";
-                el.style.boxShadow = "none";
-                el.style.background = "var(--card-bg)";
-                const icon = el.querySelector(".pillar-icon") as HTMLElement;
-                if (icon) { icon.style.color = "var(--text-secondary)"; icon.style.background = "var(--border)"; }
               }}
             >
               {/* Icon */}
               <div
                 className="pillar-icon"
                 style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "0.75rem",
-                  background: "var(--border)",
+                  width: 52,
+                  height: 52,
+                  borderRadius: "10px",
+                  background: "linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.04))",
+                  border: "1px solid rgba(212,175,55,0.32)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginBottom: "1.25rem",
-                  transition: "background 0.3s, color 0.3s",
-                  color: "var(--text-secondary)",
+                  marginBottom: "1.5rem",
+                  transition: "background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
+                  color: "var(--gold-300)",
                 }}
               >
-                <pillar.icon size={22} />
+                <pillar.icon size={22} strokeWidth={1.5} />
               </div>
 
               <h3
                 style={{
-                  fontFamily: "var(--font-syne), sans-serif",
-                  fontWeight: 600,
-                  fontSize: "1.0625rem",
+                  fontFamily: "var(--font-cormorant), serif",
+                  fontWeight: 500,
+                  fontSize: "1.5rem",
                   color: "var(--text-primary)",
-                  marginBottom: "0.625rem",
-                  lineHeight: 1.3,
+                  marginBottom: "0.75rem",
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.01em",
                 }}
               >
                 {pillar.name}
@@ -168,8 +170,9 @@ export default function ServiceBentoGrid() {
                 style={{
                   fontSize: "0.875rem",
                   color: "var(--text-secondary)",
-                  lineHeight: 1.6,
+                  lineHeight: 1.7,
                   flex: 1,
+                  fontWeight: 300,
                 }}
               >
                 {pillar.tagline}
@@ -179,27 +182,29 @@ export default function ServiceBentoGrid() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.375rem",
-                  marginTop: "1.25rem",
-                  fontSize: "0.8125rem",
-                  color: "var(--accent-primary)",
-                  fontWeight: 500,
+                  gap: "0.5rem",
+                  marginTop: "1.5rem",
+                  fontSize: "0.6875rem",
+                  color: "var(--gold-300)",
+                  fontWeight: 600,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-syne), sans-serif",
                 }}
               >
-                Explore <ArrowUpRight size={14} />
+                Discover <ArrowUpRight size={12} />
               </div>
 
-              {/* Background glow dot */}
+              {/* Top right gold corner accent */}
               <div
                 aria-hidden="true"
                 style={{
                   position: "absolute",
-                  top: "-30%",
-                  right: "-10%",
-                  width: 200,
-                  height: 200,
-                  borderRadius: "50%",
-                  background: `radial-gradient(circle, ${pillar.color}08 0%, transparent 70%)`,
+                  top: 0,
+                  right: 0,
+                  width: 80,
+                  height: 80,
+                  background: "radial-gradient(circle at top right, rgba(212,175,55,0.18), transparent 70%)",
                   pointerEvents: "none",
                 }}
               />

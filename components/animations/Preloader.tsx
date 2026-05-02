@@ -34,35 +34,52 @@ export default function Preloader() {
       aria-hidden="true"
       style={{ position: "fixed", inset: 0, background: "var(--bg-primary)", zIndex: 99999, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "2rem" }}
     >
-      {/* Logo SVG with stroke animation */}
-      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* aKross luxury mark — concentric gold rings + center jewel */}
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="aKross">
+        <defs>
+          <linearGradient id="akrossGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f3e6b0" />
+            <stop offset="50%" stopColor="#d4af37" />
+            <stop offset="100%" stopColor="#a8862a" />
+          </linearGradient>
+        </defs>
         <style>{`
-          .preloader-path {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: draw 1.2s ease forwards;
+          .preloader-ring {
+            stroke-dasharray: 220;
+            stroke-dashoffset: 220;
+            animation: draw 1.4s cubic-bezier(.22,1,.36,1) forwards;
+            transform-origin: 36px 36px;
           }
-          .preloader-path-2 {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: draw 1.2s ease 0.3s forwards;
+          .preloader-ring-inner {
+            stroke-dasharray: 140;
+            stroke-dashoffset: 140;
+            animation: draw 1.4s cubic-bezier(.22,1,.36,1) 0.25s forwards;
+            transform-origin: 36px 36px;
           }
-          @keyframes draw {
-            to { stroke-dashoffset: 0; }
+          .preloader-jewel {
+            opacity: 0;
+            transform-origin: 36px 36px;
+            animation: jewel 0.6s cubic-bezier(.22,1,.36,1) 1s forwards;
           }
+          @keyframes draw  { to { stroke-dashoffset: 0; } }
+          @keyframes jewel { 0% { opacity: 0; transform: scale(0.4) rotate(-90deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
         `}</style>
-        {/* Q shape */}
-        <circle className="preloader-path" cx="28" cy="28" r="20" stroke="#00d4ff" strokeWidth="3" fill="none" />
-        {/* Stylized tail of Q */}
-        <line className="preloader-path-2" x1="42" y1="42" x2="56" y2="56" stroke="#00d4ff" strokeWidth="3" strokeLinecap="round" />
-        {/* Inner highlight */}
-        <circle cx="28" cy="28" r="6" fill="#00d4ff" opacity="0" style={{ animation: "fadeIn 0.3s ease 1.2s forwards" }} />
-        <style>{`.preloader-path circle { animation: fadeIn 0.3s ease 1.2s forwards; } @keyframes fadeIn { to { opacity: 1; } }`}</style>
+        {/* Outer ring */}
+        <circle className="preloader-ring" cx="36" cy="36" r="30" stroke="url(#akrossGold)" strokeWidth="1.25" fill="none" />
+        {/* Inner ring */}
+        <circle className="preloader-ring-inner" cx="36" cy="36" r="22" stroke="url(#akrossGold)" strokeWidth="0.75" fill="none" opacity="0.55" />
+        {/* Center jewel — gold diamond */}
+        <g className="preloader-jewel">
+          <rect x="29" y="29" width="14" height="14" fill="url(#akrossGold)" transform="rotate(45 36 36)" rx="1" />
+        </g>
       </svg>
 
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
-        <span style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.5rem", color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
-          Quvex Technologies
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.625rem" }}>
+        <span style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif", fontWeight: 500, fontSize: "1.875rem", color: "var(--text-primary)", letterSpacing: "0.04em" }}>
+          a<span style={{ color: "var(--gold-400)" }}>K</span>ross
+        </span>
+        <span style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "0.625rem", letterSpacing: "0.42em", textTransform: "uppercase", color: "var(--gold-300)" }}>
+          Information Technology
         </span>
         <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
           {[0, 1, 2].map((i) => (

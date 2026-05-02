@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import {
   CheckCircle2, ArrowRight, ChevronRight, ChevronDown,
@@ -12,6 +13,8 @@ import CTABanner from "@/components/sections/CTABanner";
 import ContactForm from "@/components/shared/ContactForm";
 import Reveal from "@/components/shared/Reveal";
 import type { Service, ServiceCategory } from "@/lib/services-data";
+
+const Service3DBackdrop = dynamic(() => import("./Service3DBackdrop"), { ssr: false });
 
 interface ServiceDetailTemplateProps {
   service: Service;
@@ -288,8 +291,8 @@ const CATEGORY_FAQ: Record<string, FaqItem[]> = {
   ],
 };
 
-// Why Choose Quvex — static, used on all service pages
-const WHY_QUVEX = [
+// Why Choose aKross — static, used on all service pages
+const WHY_AKROSS = [
   {
     iconName: "Award",
     title: "10+ Years of UAE Market Expertise",
@@ -446,20 +449,25 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
           HERO
       ══════════════════════════════════════════════════════ */}
       <section
+        className="svc-hero"
         style={{
           paddingTop: "clamp(6rem,12vw,9rem)",
           paddingBottom: "5rem",
           background: "var(--bg-primary)",
           borderBottom: "1px solid var(--border)",
-          position: "relative",
-          overflow: "hidden",
+          ["--accent" as never]: accentHex,
         }}
       >
-        {/* Decorative glow orbs */}
-        <div aria-hidden="true" style={{ position: "absolute", top: "-20%", right: "-10%", width: "60vw", height: "60vw", maxWidth: 700, maxHeight: 700, borderRadius: "50%", background: `radial-gradient(circle, ${accentHex}08 0%, transparent 65%)`, pointerEvents: "none" }} />
-        <div aria-hidden="true" style={{ position: "absolute", bottom: "-30%", left: "-5%", width: "40vw", height: "40vw", maxWidth: 500, maxHeight: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(123,47,255,0.06) 0%, transparent 65%)", pointerEvents: "none" }} />
+        {/* 3D animated backdrop */}
+        <Service3DBackdrop accentColor={accentHex} density="low" scale={0.45} />
 
-        <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
+        {/* Floating glow orbs (animated) */}
+        <div aria-hidden="true" className="svc-hero-orb" style={{ top: "-18%", right: "-8%", width: "60vw", height: "60vw", maxWidth: 700, maxHeight: 700, background: `radial-gradient(circle, ${accentHex}14 0%, transparent 65%)`, animationDuration: "9s" }} />
+        <div aria-hidden="true" className="svc-hero-orb" style={{ bottom: "-30%", left: "-5%", width: "40vw", height: "40vw", maxWidth: 500, maxHeight: 500, background: "radial-gradient(circle, rgba(123,47,255,0.10) 0%, transparent 65%)", animationDuration: "11s", animationDelay: "1.5s" }} />
+        <div aria-hidden="true" className="svc-hero-orb" style={{ top: "30%", left: "55%", width: "30vw", height: "30vw", maxWidth: 380, maxHeight: 380, background: `radial-gradient(circle, ${accentHex}0d 0%, transparent 70%)`, animationDuration: "13s", animationDelay: "0.8s" }} />
+        <div aria-hidden="true" className="svc-hero-orb" style={{ top: "10%", left: "10%", width: "20vw", height: "20vw", maxWidth: 240, maxHeight: 240, background: "radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%)", animationDuration: "14s", animationDelay: "2.2s" }} />
+
+        <div className="section-container">
           {/* Breadcrumb */}
           <Reveal>
             <nav aria-label="Breadcrumb" style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginBottom: "2rem", flexWrap: "wrap" }}>
@@ -480,7 +488,7 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
             </nav>
           </Reveal>
 
-          <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "4rem", alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
             {/* Left content */}
             <div>
               <Reveal delay={50}>
@@ -525,43 +533,34 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
               </Reveal>
             </div>
 
-            {/* Right — visual card */}
+            {/* Right — Contact form (replaces previous tech card so users can enquire directly) */}
             <Reveal direction="right" delay={150}>
-              <div style={{ borderRadius: "1.5rem", overflow: "hidden", border: `1px solid ${accentHex}20`, background: `linear-gradient(135deg, ${accentHex}08 0%, rgba(123,47,255,0.06) 50%, rgba(0,102,255,0.04) 100%)`, padding: "2.5rem", position: "relative" }}>
-                {/* Large icon */}
-                <div style={{ width: 80, height: 80, borderRadius: "1.25rem", background: `${accentHex}18`, border: `1px solid ${accentHex}30`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem", fontSize: "2.5rem" }}>
-                  {service.icon}
+              <div className="glass-card" style={{ borderRadius: "1.5rem", overflow: "hidden", border: `1px solid ${accentHex}20`, background: `linear-gradient(135deg, ${accentHex}08 0%, rgba(123,47,255,0.06) 50%, rgba(0,102,255,0.04) 100%)`, padding: "2rem", position: "relative" }}>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <p className="label-tag" style={{ marginBottom: "0.5rem", color: accentHex }}>Contact Us</p>
+                  <h3 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.25rem", color: "var(--text-primary)", marginBottom: "0.5rem", lineHeight: 1.25 }}>
+                    Enquire About {service.name}
+                  </h3>
+                  <p style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1.25rem" }}>
+                    Get a tailored proposal within 2 business hours.
+                  </p>
+                  <ContactForm
+                    defaultService={service.name}
+                    compact={true}
+                    accentColor={accentHex}
+                  />
                 </div>
-
-                <div style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.25rem", color: "var(--text-primary)", marginBottom: "0.75rem" }}>
-                  {service.name}
-                </div>
-
-                <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1.5rem" }}>
-                  {service.targetAudience}
-                </p>
-
-                {/* Tech pills */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                  {service.technologies.slice(0, 6).map(t => (
-                    <span key={t} style={{ padding: "0.25rem 0.625rem", borderRadius: "0.375rem", background: "var(--bg-tertiary)", border: "1px solid var(--card-border)", fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "var(--font-space-mono), monospace" }}>
-                      {t}
-                    </span>
-                  ))}
-                  {service.technologies.length > 6 && (
-                    <span style={{ padding: "0.25rem 0.625rem", borderRadius: "0.375rem", background: `${accentHex}10`, border: `1px solid ${accentHex}20`, fontSize: "0.75rem", color: accentHex }}>
-                      +{service.technologies.length - 6} more
-                    </span>
-                  )}
-                </div>
-
-                <div aria-hidden="true" style={{ position: "absolute", bottom: "-20%", right: "-10%", width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${accentHex}12, transparent 70%)`, pointerEvents: "none" }} />
+                <div aria-hidden="true" style={{ position: "absolute", bottom: "-20%", right: "-10%", width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${accentHex}12, transparent 70%)`, pointerEvents: "none", zIndex: 0 }} />
               </div>
             </Reveal>
           </div>
         </div>
 
-        <style>{`@media (max-width: 900px) { section > div > div[style*="3fr 2fr"] { grid-template-columns: 1fr !important; } }`}</style>
+        <style>{`
+          @media (max-width: 960px) {
+            .svc-hero > div.section-container > div[style*="1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+          }
+        `}</style>
       </section>
 
       {/* ══════════════════════════════════════════════════════
@@ -875,18 +874,18 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
         <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-              <p className="label-tag" style={{ marginBottom: "0.875rem" }}>Why Quvex Technologies</p>
+              <p className="label-tag" style={{ marginBottom: "0.875rem" }}>Why aKross Information Technology</p>
               <h2 className="headline-section" style={{ marginBottom: "1rem" }}>
-                The Quvex <span className="gradient-text">Difference</span>
+                The aKross <span className="gradient-text">Difference</span>
               </h2>
               <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto", lineHeight: 1.75 }}>
-                150+ UAE businesses chose Quvex Technologies. Here is what makes us different from every other technology provider in the market.
+                150+ UAE businesses chose aKross Information Technology. Here is what makes us different from every other technology provider in the market.
               </p>
             </div>
           </Reveal>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.5rem" }}>
-            {WHY_QUVEX.map((w, i) => {
+            {WHY_AKROSS.map((w, i) => {
               const Icon = iconMap[w.iconName] ?? Shield;
               return (
                 <Reveal key={w.title} delay={i * 90} direction="up">
@@ -930,7 +929,7 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
           <Reveal delay={200}>
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
               <Link href="/about" className="btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-                About Quvex Technologies <ArrowRight size={15} />
+                About aKross Information Technology <ArrowRight size={15} />
               </Link>
             </div>
           </Reveal>
@@ -952,7 +951,7 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
                   Frequently Asked <span className="gradient-text">Questions</span>
                 </h2>
                 <p style={{ fontSize: "0.9375rem", color: "var(--text-secondary)", lineHeight: 1.75, marginBottom: "2rem" }}>
-                  Common questions from UAE businesses considering {service.name} from Quvex Technologies. Don&apos;t see your question? Contact us directly.
+                  Common questions from UAE businesses considering {service.name} from aKross Information Technology. Don&apos;t see your question? Contact us directly.
                 </p>
                 <Link href="/contact" className="btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem" }}>
                   Ask a Question <ArrowRight size={14} />
@@ -1000,19 +999,30 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
                 {/* Contact info */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.125rem" }}>
                   {[
-                    { icon: "📞", label: "Call Us",    value: "+971-4-XXX-XXXX" },
-                    { icon: "✉️", label: "Email Us",   value: "hello@quvex.ae" },
-                    { icon: "💬", label: "WhatsApp",   value: "Chat with our team" },
+                    { icon: "📞", label: "Call Us",    value: "+971 55 930 0437", href: "tel:+971559300437" },
+                    { icon: "✉️", label: "Email Us",   value: "hello@akross.ae",  href: `mailto:hello@akross.ae?subject=${encodeURIComponent(`Enquiry: ${service.name}`)}` },
+                    { icon: "💬", label: "WhatsApp",   value: "Chat with our team", href: `https://wa.me/971559300437?text=${encodeURIComponent(`Hi aKross, I am interested in your ${service.name} service.`)}` },
                     { icon: "📍", label: "Our Office", value: "Dubai, UAE & Abu Dhabi" },
-                  ].map(item => (
-                    <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
-                      <span style={{ fontSize: "1.25rem", width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0.625rem", background: `${accentHex}10`, border: `1px solid ${accentHex}20` }}>{item.icon}</span>
-                      <div>
-                        <div style={{ fontSize: "0.6875rem", fontWeight: 600, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{item.label}</div>
-                        <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>{item.value}</div>
+                  ].map(item => {
+                    const inner = (
+                      <>
+                        <span style={{ fontSize: "1.25rem", width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0.625rem", background: `${accentHex}10`, border: `1px solid ${accentHex}20` }}>{item.icon}</span>
+                        <div>
+                          <div style={{ fontSize: "0.6875rem", fontWeight: 600, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{item.label}</div>
+                          <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>{item.value}</div>
+                        </div>
+                      </>
+                    );
+                    return item.href ? (
+                      <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined} style={{ display: "flex", alignItems: "center", gap: "0.875rem", textDecoration: "none" }}>
+                        {inner}
+                      </a>
+                    ) : (
+                      <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
+                        {inner}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* Trust signals */}

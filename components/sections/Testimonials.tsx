@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Quvex transformed our entire operations in under 6 months. The Odoo implementation was flawless — from data migration to user training. We went from spreadsheets to a fully integrated ERP overnight. Our finance team now closes monthly accounts in 3 days instead of 3 weeks.",
+    quote: "aKross transformed our entire operations in under 6 months. The Odoo implementation was flawless — from data migration to user training. We went from spreadsheets to a fully integrated ERP overnight. Our finance team now closes monthly accounts in 3 days instead of 3 weeks.",
     name: "Mohammed Al Rashidi",
     title: "CFO",
     company: "Al Rashidi Group",
@@ -20,7 +20,7 @@ const testimonials = [
     stars: 5,
   },
   {
-    quote: "We interviewed 7 IT companies in Dubai before choosing Quvex. The difference was immediate — they actually understood our business before proposing solutions. Our cybersecurity posture has improved dramatically and the 24/7 NOC team gives us genuine peace of mind.",
+    quote: "We interviewed 7 IT companies in Dubai before choosing aKross. The difference was immediate — they actually understood our business before proposing solutions. Our cybersecurity posture has improved dramatically and the 24/7 NOC team gives us genuine peace of mind.",
     name: "Ahmed Khalil",
     title: "IT Director",
     company: "Emirates Healthcare Group",
@@ -28,7 +28,7 @@ const testimonials = [
     stars: 5,
   },
   {
-    quote: "The AI chatbot Quvex built handles 70% of our customer inquiries automatically. Integration with our CRM was seamless and the analytics dashboard gives us insights we never had before. ROI was achieved in under 4 months.",
+    quote: "The AI chatbot aKross built handles 70% of our customer inquiries automatically. Integration with our CRM was seamless and the analytics dashboard gives us insights we never had before. ROI was achieved in under 4 months.",
     name: "Sara Al Mansoori",
     title: "Head of Digital",
     company: "Noor Finance",
@@ -36,7 +36,7 @@ const testimonials = [
     stars: 5,
   },
   {
-    quote: "From brand identity to website to Google Ads to social media — Quvex manages all our digital presence. Our online leads have increased 4x and cost per lead dropped by 60% since we partnered with them. They feel like an extension of our in-house team.",
+    quote: "From brand identity to website to Google Ads to social media — aKross manages all our digital presence. Our online leads have increased 4x and cost per lead dropped by 60% since we partnered with them. They feel like an extension of our in-house team.",
     name: "Tariq Mohammed",
     title: "Managing Director",
     company: "Pearl Properties",
