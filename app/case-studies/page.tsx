@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import CTABanner from "@/components/sections/CTABanner";
+import PageStarBackdrop from "@/components/sections/PageStarBackdrop";
 import { ArrowUpRight, TrendingUp } from "lucide-react";
 
 const cases = [
@@ -15,60 +16,64 @@ const cases = [
 export default function CaseStudiesPage() {
   return (
     <>
-      <section style={{ paddingTop: "clamp(5.5rem,10vw,7.5rem)", paddingBottom: "clamp(2.5rem,4vw,3rem)", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
-        <div className="section-container" style={{ textAlign: "center" }}>
-          <p className="label-tag" style={{ marginBottom: "1rem" }}>Proven Results</p>
-          <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
-            Results That <span className="gradient-text">Speak for Themselves</span>
-          </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "560px", margin: "0 auto" }}>
-            Real projects. Real clients. Real numbers. No case study on this page is hypothetical or embellished.
-          </p>
-        </div>
-      </section>
-
-      <section className="section-padding" style={{ background: "var(--bg-primary)" }}>
-        <div className="section-container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
-            {cases.map(c => (
-              <Link
-                key={c.slug}
-                href={`/case-studies/${c.slug}`}
-                style={{ display: "flex", flexDirection: "column", borderRadius: "1rem", background: "var(--card-bg)", border: "1px solid var(--border)", overflow: "hidden", textDecoration: "none", transition: "border-color 0.3s, transform 0.3s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${c.color}35`; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
-              >
-                <div style={{ height: 4, background: `linear-gradient(90deg, ${c.color}, transparent)` }} />
-                <div style={{ padding: "1.75rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                  <span style={{ display: "inline-block", marginBottom: "1rem", padding: "0.25rem 0.75rem", borderRadius: "100px", background: `${c.color}15`, color: c.color, fontSize: "0.75rem", fontWeight: 600 }}>{c.industry}</span>
-                  <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.35, marginBottom: "0.875rem" }}>{c.title}</h2>
-                  <p style={{ fontSize: "0.8375rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1rem" }}><strong style={{ color: "var(--text-tertiary)", fontSize: "0.75rem", display: "block", marginBottom: "0.25rem" }}>CHALLENGE</strong>{c.challenge}</p>
-                  <p style={{ fontSize: "0.8375rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1.25rem", flex: 1 }}><strong style={{ color: "var(--text-tertiary)", fontSize: "0.75rem", display: "block", marginBottom: "0.25rem" }}>RESULT</strong>{c.result}</p>
-                  <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
-                    {c.tags.map(tag => <span key={tag} style={{ padding: "0.2rem 0.625rem", borderRadius: "0.3rem", background: "var(--bg-tertiary)", border: "1px solid var(--border)", fontSize: "0.7rem", color: "var(--text-tertiary)" }}>{tag}</span>)}
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", padding: "0.875rem", borderRadius: "0.75rem", background: `${c.color}08`, border: `1px solid ${c.color}20` }}>
-                    <TrendingUp size={18} style={{ color: c.color }} />
-                    <div>
-                      <div className="stat-number" style={{ fontSize: "1.25rem", fontWeight: 700, color: c.color }}>{c.metric}</div>
-                      <div style={{ fontSize: "0.7rem", color: "var(--text-tertiary)" }}>{c.metricLabel}</div>
-                    </div>
-                    <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8125rem", color: "var(--accent-primary)", fontWeight: 500 }}>Read <ArrowUpRight size={13} /></div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+      <PageStarBackdrop />
+      <div className="cosmic-page">
+        <section className="page-hero" style={{ paddingTop: "clamp(5.5rem,10vw,7.5rem)", paddingBottom: "clamp(2.5rem,4vw,3rem)", borderBottom: "1px solid var(--border)" }}>
+          <div className="section-container" style={{ textAlign: "center" }}>
+            <p className="label-tag" style={{ marginBottom: "1rem" }}>Proven Results</p>
+            <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
+              Results That <span className="gradient-text">Speak for Themselves</span>
+            </h1>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "560px", margin: "0 auto" }}>
+              Real projects. Real clients. Real numbers. No case study on this page is hypothetical or embellished.
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <CTABanner />
+        <section className="section-padding">
+          <div className="section-container">
+            <div className="cases-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+              {cases.map(c => (
+                <Link
+                  key={c.slug}
+                  href={`/case-studies/${c.slug}`}
+                  style={{ display: "flex", flexDirection: "column", borderRadius: "1rem", background: "var(--card-bg)", border: "1px solid var(--border)", overflow: "hidden", textDecoration: "none", transition: "border-color 0.3s, transform 0.3s", backdropFilter: "blur(12px)" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${c.color}35`; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+                >
+                  <div style={{ height: 4, background: `linear-gradient(90deg, ${c.color}, transparent)` }} />
+                  <div style={{ padding: "1.75rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                    <span style={{ display: "inline-block", marginBottom: "1rem", padding: "0.25rem 0.75rem", borderRadius: "100px", background: `${c.color}15`, color: c.color, fontSize: "0.75rem", fontWeight: 600, alignSelf: "flex-start" }}>{c.industry}</span>
+                    <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.35, marginBottom: "0.875rem" }}>{c.title}</h2>
+                    <p style={{ fontSize: "0.8375rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1rem" }}><strong style={{ color: "var(--text-tertiary)", fontSize: "0.75rem", display: "block", marginBottom: "0.25rem" }}>CHALLENGE</strong>{c.challenge}</p>
+                    <p style={{ fontSize: "0.8375rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1.25rem", flex: 1 }}><strong style={{ color: "var(--text-tertiary)", fontSize: "0.75rem", display: "block", marginBottom: "0.25rem" }}>RESULT</strong>{c.result}</p>
+                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
+                      {c.tags.map(tag => <span key={tag} style={{ padding: "0.2rem 0.625rem", borderRadius: "0.3rem", background: "var(--bg-tertiary)", border: "1px solid var(--border)", fontSize: "0.7rem", color: "var(--text-tertiary)" }}>{tag}</span>)}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", padding: "0.875rem", borderRadius: "0.75rem", background: `${c.color}08`, border: `1px solid ${c.color}20` }}>
+                      <TrendingUp size={18} style={{ color: c.color }} />
+                      <div>
+                        <div className="stat-number" style={{ fontSize: "1.25rem", fontWeight: 700, color: c.color }}>{c.metric}</div>
+                        <div style={{ fontSize: "0.7rem", color: "var(--text-tertiary)" }}>{c.metricLabel}</div>
+                      </div>
+                      <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8125rem", color: "var(--accent-primary)", fontWeight: 500 }}>Read <ArrowUpRight size={13} /></div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CTABanner />
+      </div>
 
       <style>{`
-        @media (max-width: 1024px) { section > div > div[style*="repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; gap: 1.25rem !important; } }
+        @media (max-width: 1024px) { .cases-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1.25rem !important; } }
         @media (max-width: 640px) {
-          section > div > div[style*="repeat(3"] { grid-template-columns: 1fr !important; gap: 1rem !important; }
-          section[style*="padding"] { padding-top: clamp(2.5rem, 8vw, 4rem) !important; padding-bottom: clamp(2.5rem, 8vw, 4rem) !important; }
+          .cases-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          .page-hero { padding-top: clamp(5rem, 18vw, 7rem) !important; padding-bottom: 2rem !important; }
+          .cases-grid > a > div:last-child { padding: 1.25rem !important; }
         }
       `}</style>
     </>

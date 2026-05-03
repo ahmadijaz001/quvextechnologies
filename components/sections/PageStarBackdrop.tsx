@@ -20,12 +20,23 @@ const Service3DBackdrop = dynamic(
   }
 );
 
+interface Props {
+  accentColor?: string;
+  density?: "low" | "medium" | "high";
+  scale?: number;
+}
+
 /**
- * Page-wide moving star backdrop for the home page.
- * Fixed-positioned so the same Canvas covers every section as the user scrolls,
- * mirroring the treatment used on /services.
+ * Page-wide moving star backdrop.
+ * Fixed-positioned so a single Canvas covers every section as the user scrolls.
+ * Use together with the `cosmic-page` class so section backgrounds become
+ * transparent and the stars show through at full intensity.
  */
-export default function HomeStarBackdrop() {
+export default function PageStarBackdrop({
+  accentColor = "#d4af37",
+  density = "high",
+  scale = 0.65,
+}: Props = {}) {
   return (
     <div
       aria-hidden="true"
@@ -36,7 +47,7 @@ export default function HomeStarBackdrop() {
         pointerEvents: "none",
       }}
     >
-      <Service3DBackdrop accentColor="#d4af37" density="high" scale={0.65} />
+      <Service3DBackdrop accentColor={accentColor} density={density} scale={scale} />
     </div>
   );
 }

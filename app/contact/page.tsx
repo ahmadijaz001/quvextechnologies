@@ -1,7 +1,7 @@
 "use client";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import ContactForm from "@/components/shared/ContactForm";
-import Reveal from "@/components/shared/Reveal";
+import PageStarBackdrop from "@/components/sections/PageStarBackdrop";
 
 const contactInfo = [
   { Icon: MapPin,  label: "Address",        value: "Sheikh Zayed Road, Tower One\nDubai, United Arab Emirates" },
@@ -20,79 +20,53 @@ const faqs = [
 export default function ContactPage() {
   return (
     <>
-      {/* Hero */}
-      <section
-        className="contact-hero"
-        style={{
-          paddingTop: "clamp(5.5rem,10vw,7.5rem)",
-          paddingBottom: "clamp(2.5rem,4vw,3.5rem)",
-          background: "var(--bg-primary)",
-          borderBottom: "1px solid var(--border)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          aria-hidden="true"
+      <PageStarBackdrop />
+      <div className="cosmic-page">
+        {/* Hero with embedded form */}
+        <section
+          className="contact-hero"
           style={{
-            position: "absolute",
-            top: "-30%",
-            right: "-10%",
-            width: "50vw",
-            height: "50vw",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 65%)",
-            pointerEvents: "none",
+            position: "relative",
+            paddingTop: "clamp(5.5rem, 9vw, 7rem)",
+            paddingBottom: "clamp(2.5rem, 5vw, 3.5rem)",
+            overflow: "hidden",
           }}
-        />
-        <div className="section-container" style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
-          <Reveal>
-            <p className="label-tag" style={{ marginBottom: "1rem" }}>Get in Touch</p>
-            <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
-              Let&apos;s Start a <span className="gradient-text">Conversation</span>
-            </h1>
-            <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "540px", margin: "0 auto" }}>
-              Have a project in mind? Need expert advice? Just want to explore options? We&apos;re here — and we respond within 2 hours.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+        >
+          <div className="section-container">
+            <div className="contact-hero-grid">
+              {/* LEFT — intro + contact info */}
+              <div className="contact-hero-intro">
+                <p className="label-tag" style={{ marginBottom: "0.875rem" }}>Get in Touch</p>
+                <h1 className="headline-section" style={{ marginBottom: "0.875rem" }}>
+                  Let&apos;s Start a <span className="gradient-text">Conversation</span>
+                </h1>
+                <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.65, maxWidth: 480, marginBottom: "1.5rem" }}>
+                  Have a project in mind? Need expert advice? We respond within 2 business hours.
+                </p>
 
-      {/* Contact grid */}
-      <section className="section-padding" style={{ background: "var(--bg-primary)" }}>
-        <div className="section-container">
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: "5rem", alignItems: "start" }}>
-
-            {/* Left — contact info */}
-            <Reveal direction="left">
-              <div>
-                <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.25rem", color: "var(--text-primary)", marginBottom: "2rem" }}>
-                  Contact Information
-                </h2>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2.5rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "1.5rem" }}>
                   {contactInfo.map(({ Icon, label, value }) => (
-                    <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                    <div key={label} style={{ display: "flex", gap: "0.875rem", alignItems: "flex-start" }}>
                       <div
                         style={{
-                          width: 44,
-                          height: 44,
-                          borderRadius: "0.875rem",
-                          background: "rgba(0,212,255,0.08)",
-                          border: "1px solid rgba(0,212,255,0.15)",
+                          width: 38,
+                          height: 38,
+                          borderRadius: 8,
+                          background: "rgba(212,175,55,0.1)",
+                          border: "1px solid rgba(212,175,55,0.28)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           flexShrink: 0,
                         }}
                       >
-                        <Icon size={18} style={{ color: "var(--accent-primary)" }} />
+                        <Icon size={16} style={{ color: "var(--gold-300)" }} />
                       </div>
                       <div>
-                        <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)", marginBottom: "0.3rem" }}>
+                        <div style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)", marginBottom: "0.18rem" }}>
                           {label}
                         </div>
-                        <div style={{ fontSize: "0.9375rem", color: "var(--text-secondary)", whiteSpace: "pre-line", lineHeight: 1.65 }}>
+                        <div style={{ fontSize: "0.875rem", color: "var(--text-secondary)", whiteSpace: "pre-line", lineHeight: 1.55 }}>
                           {value}
                         </div>
                       </div>
@@ -108,72 +82,103 @@ export default function ContactPage() {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "1rem",
-                    padding: "1.25rem 1.5rem",
-                    borderRadius: "0.875rem",
-                    background: "rgba(37,211,102,0.06)",
-                    border: "1px solid rgba(37,211,102,0.2)",
+                    gap: "0.875rem",
+                    padding: "0.875rem 1.125rem",
+                    borderRadius: 10,
+                    background: "rgba(37,211,102,0.08)",
+                    border: "1px solid rgba(37,211,102,0.25)",
                     textDecoration: "none",
                     transition: "background 0.2s, border-color 0.2s",
-                    marginBottom: "3rem",
+                    backdropFilter: "blur(10px)",
+                    width: "fit-content",
                   }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.background = "rgba(37,211,102,0.1)";
-                    el.style.borderColor = "rgba(37,211,102,0.35)";
+                    el.style.background = "rgba(37,211,102,0.12)";
+                    el.style.borderColor = "rgba(37,211,102,0.4)";
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.background = "rgba(37,211,102,0.06)";
-                    el.style.borderColor = "rgba(37,211,102,0.2)";
+                    el.style.background = "rgba(37,211,102,0.08)";
+                    el.style.borderColor = "rgba(37,211,102,0.25)";
                   }}
                 >
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(37,211,102,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <MessageCircle size={20} style={{ color: "#25d366" }} />
+                  <div style={{ width: 34, height: 34, borderRadius: "50%", background: "rgba(37,211,102,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <MessageCircle size={17} style={{ color: "#25d366" }} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: "0.9375rem", color: "var(--text-primary)" }}>Chat on WhatsApp</div>
-                    <div style={{ fontSize: "0.8125rem", color: "#25d366" }}>Typically replies within minutes</div>
+                    <div style={{ fontWeight: 700, fontSize: "0.875rem", color: "var(--text-primary)" }}>Chat on WhatsApp</div>
+                    <div style={{ fontSize: "0.75rem", color: "#25d366" }}>Replies within minutes</div>
                   </div>
                 </a>
-
-                {/* Mini FAQ */}
-                <h3 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1rem", color: "var(--text-primary)", marginBottom: "1.25rem" }}>
-                  Common Questions
-                </h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
-                  {faqs.map(faq => (
-                    <div key={faq.q} style={{ padding: "1rem 1.25rem", borderRadius: "0.75rem", background: "var(--card-bg)", border: "1px solid var(--border)" }}>
-                      <div style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--text-primary)", marginBottom: "0.375rem" }}>{faq.q}</div>
-                      <div style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>{faq.a}</div>
-                    </div>
-                  ))}
-                </div>
               </div>
-            </Reveal>
 
-            {/* Right — form */}
-            <Reveal direction="right" delay={100}>
-              <div className="glass-card" style={{ padding: "2.75rem" }}>
+              {/* RIGHT — form */}
+              <div className="glass-card contact-form-card">
                 <ContactForm
+                  compact
                   title="Send Us a Message"
-                  subtitle="We respond within 2 business hours. Your data is kept strictly confidential."
+                  subtitle="We respond within 2 business hours."
                 />
               </div>
-            </Reveal>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <style>{`
-          @media (max-width: 900px) {
-            section > div > div[style*="2fr 3fr"] { grid-template-columns: 1fr !important; gap: 2rem !important; }
+        {/* FAQ section */}
+        <section className="section-padding" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)" }}>
+          <div className="section-container">
+            <p className="label-tag" style={{ marginBottom: "0.625rem" }}>Common Questions</p>
+            <h2 className="headline-display" style={{ marginBottom: "1.5rem" }}>Frequently Asked</h2>
+            <div className="faq-grid">
+              {faqs.map(faq => (
+                <div key={faq.q} style={{ padding: "1.125rem 1.25rem", borderRadius: 10, background: "var(--card-bg)", border: "1px solid var(--border)", backdropFilter: "blur(10px)" }}>
+                  <div style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--text-primary)", marginBottom: "0.5rem" }}>{faq.q}</div>
+                  <div style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>{faq.a}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <style>{`
+        .contact-hero-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+          gap: clamp(1.75rem, 3vw, 2.75rem);
+          align-items: start;
+        }
+        .contact-form-card {
+          padding: 1.5rem 1.5rem 1.375rem;
+          width: 100%;
+          max-width: 560px;
+          margin-left: auto;
+        }
+        .faq-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.875rem;
+          max-width: 900px;
+        }
+        @media (max-width: 1024px) {
+          .contact-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
           }
-          @media (max-width: 640px) {
-            section > div > div[style*="2fr 3fr"] { gap: 1.5rem !important; }
-            section > div > div[style*="2fr 3fr"] > div { padding: 0 !important; }
+          .contact-hero-intro { order: 2; }
+          .contact-form-card {
+            order: 1;
+            margin-left: 0 !important;
+            max-width: 100% !important;
           }
-        `}</style>
-      </section>
+        }
+        @media (max-width: 640px) {
+          .contact-hero { padding-top: clamp(5rem, 16vw, 6.5rem) !important; padding-bottom: 1.75rem !important; }
+          .contact-form-card { padding: 1.125rem !important; }
+          .faq-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </>
   );
 }

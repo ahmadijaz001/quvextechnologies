@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import Link from "next/link";
 import {
-  ArrowUpRight, Calendar, ChevronLeft, ChevronRight,
+  ArrowUpRight, Calendar,
   Database, Bot, ShieldCheck, Cloud, Star, Sparkles,
   CheckCircle2, Globe, Cpu, Server, Boxes, Smartphone, Network,
 } from "lucide-react";
@@ -248,7 +248,6 @@ export default function Hero() {
   const [paused,  setPaused]  = useState(false);
 
   const next = useCallback(() => setCurrent(c => (c + 1) % slides.length), []);
-  const prev = useCallback(() => setCurrent(c => (c - 1 + slides.length) % slides.length), []);
 
   useEffect(() => {
     if (paused) return;
@@ -265,7 +264,6 @@ export default function Hero() {
       style={{
         position: "relative",
         minHeight: "100svh",
-        height: "100svh",
         overflow: "hidden",
         /* Explicit sky-color base — guarantees the section is never white,
            even before 3D chunks load or during HMR transitions. */
@@ -390,9 +388,9 @@ export default function Hero() {
           zIndex: 4,
           display: "flex",
           alignItems: "flex-start",
-          padding: "clamp(6rem, 11vh, 8rem) clamp(1.5rem, 5vw, 5rem) clamp(2rem, 4vh, 3rem)",
+          padding: "clamp(6rem, 11vh, 8rem) clamp(1.5rem, 5vw, 5rem) clamp(4.5rem, 8vh, 5.5rem)",
           gap: "clamp(1.5rem, 3vw, 3rem)",
-          height: "100%",
+          minHeight: "100svh",
         }}
       >
         {/* ════ LEFT COLUMN ════ */}
@@ -516,86 +514,16 @@ export default function Hero() {
 
           {/* CTAs */}
           <div style={{ animation: "heroSlideUp 1s cubic-bezier(.22,1,.36,1) 0.9s both" }}>
-            <div
-              style={{
-                display: "flex",
-                gap: "0.875rem",
-                flexWrap: "wrap",
-                marginBottom: "1.625rem",
-              }}
-            >
-              <Link
-                href="/book-consultation"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.625rem",
-                  padding: "1rem 2.125rem",
-                  borderRadius: "6px",
-                  background:
-                    "linear-gradient(135deg, #d4af37 0%, #f3e6b0 50%, #c9a44c 100%)",
-                  backgroundSize: "200% 200%",
-                  color: "#050816",
-                  fontFamily: "var(--font-syne), sans-serif",
-                  fontWeight: 700,
-                  fontSize: "0.9375rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                  boxShadow:
-                    "0 10px 40px rgba(212,175,55,0.45), inset 0 1px 0 rgba(255,255,255,0.45)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease, background-position 0.6s ease",
-                  border: "1px solid rgba(212,175,55,0.6)",
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = "translateY(-3px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 14px 48px rgba(212,175,55,0.55), inset 0 1px 0 rgba(255,255,255,0.5)";
-                  e.currentTarget.style.backgroundPosition = "100% 50%";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 32px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.4)";
-                  e.currentTarget.style.backgroundPosition = "0% 50%";
-                }}
-              >
-                <Calendar size={16} />
-                Book Strategic Consultation
+            <div className="hero-cta-row">
+              <Link href="/book-consultation" className="hero-cta hero-cta-primary">
+                <Calendar size={15} className="hero-cta-icon" />
+                <span>Book Strategic Consultation</span>
+                <span className="hero-cta-shine" aria-hidden="true" />
               </Link>
 
-              <Link
-                href="/services"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.625rem",
-                  padding: "1rem 2.125rem",
-                  borderRadius: "6px",
-                  background: "rgba(245,241,230,0.04)",
-                  border: "1px solid rgba(212,175,55,0.4)",
-                  color: "var(--gold-200)",
-                  fontFamily: "var(--font-syne), sans-serif",
-                  fontWeight: 600,
-                  fontSize: "0.9375rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                  backdropFilter: "blur(12px)",
-                  transition: "background 0.3s ease, border-color 0.3s ease, color 0.3s ease",
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = "rgba(212,175,55,0.1)";
-                  e.currentTarget.style.borderColor = "var(--gold-400)";
-                  e.currentTarget.style.color = "var(--gold-100)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = "rgba(245,241,230,0.04)";
-                  e.currentTarget.style.borderColor = "rgba(212,175,55,0.4)";
-                  e.currentTarget.style.color = "var(--gold-200)";
-                }}
-              >
-                Explore Services <ArrowUpRight size={16} />
+              <Link href="/services" className="hero-cta hero-cta-ghost">
+                <span>Explore Services</span>
+                <ArrowUpRight size={15} className="hero-cta-arrow" />
               </Link>
             </div>
           </div>
@@ -625,25 +553,25 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ════ RIGHT COLUMN — Compact horizontal 3-pillar showcase ════ */}
+        {/* ════ RIGHT COLUMN — 3-pillar service showcase ════ */}
         <div
           className="hero-right-panel"
           style={{
             flex: 1,
             position: "relative",
-            minHeight: "min(60vh, 540px)",
             alignSelf: "stretch",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: "1.25rem",
+            gap: "1rem",
             padding: "0 0.5rem",
           }}
         >
           <div
+            className="hero-svc-head"
             style={{
               alignSelf: "flex-end",
-              maxWidth: 360,
+              maxWidth: 380,
               width: "100%",
               marginLeft: "auto",
               textAlign: "right",
@@ -657,31 +585,31 @@ export default function Hero() {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.4rem 0.875rem",
+                gap: "0.4rem",
+                padding: "0.32rem 0.75rem",
                 borderRadius: "100px",
                 background: "rgba(5,8,22,0.78)",
                 border: "1px solid rgba(212,175,55,0.45)",
                 backdropFilter: "blur(12px)",
-                marginBottom: "0.5rem",
+                marginBottom: "0.45rem",
                 boxShadow: "0 0 18px rgba(212,175,55,0.18)",
               }}
             >
               <span
                 style={{
-                  width: 6,
-                  height: 6,
+                  width: 5,
+                  height: 5,
                   borderRadius: "50%",
                   background: "var(--gold-300)",
-                  boxShadow: "0 0 10px var(--gold-300)",
+                  boxShadow: "0 0 8px var(--gold-300)",
                   animation: "heroPulse 2.4s ease infinite",
                 }}
               />
               <span
                 style={{
-                  fontSize: "0.6875rem",
+                  fontSize: "0.625rem",
                   fontWeight: 700,
-                  letterSpacing: "0.28em",
+                  letterSpacing: "0.24em",
                   textTransform: "uppercase",
                   fontFamily: "var(--font-syne), sans-serif",
                   color: "var(--gold-200)",
@@ -694,92 +622,56 @@ export default function Hero() {
               style={{
                 fontFamily: "var(--font-syne), sans-serif",
                 fontWeight: 700,
-                fontSize: "clamp(1.5rem, 2.4vw, 2rem)",
-                lineHeight: 1.15,
+                fontSize: "clamp(1.125rem, 1.8vw, 1.5rem)",
+                lineHeight: 1.18,
                 letterSpacing: "-0.01em",
                 color: "var(--text-primary)",
                 margin: 0,
-                textShadow: "0 2px 24px rgba(2,4,12,0.85), 0 0 48px rgba(2,4,12,0.6)",
+                textShadow: "0 2px 24px rgba(2,4,12,0.85)",
               }}
             >
-              What We <span style={{ background: "linear-gradient(90deg, #f3e6b0 0%, #d4af37 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Do</span>
+              What We{" "}
+              <span style={{ background: "linear-gradient(90deg, #f3e6b0 0%, #d4af37 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                Do
+              </span>
             </h2>
           </div>
 
           {/* Horizontal 3-card row */}
           <div className="hero-svc-row">
             {[
-              { icon: Server,     title: "IT Infrastructure",  caption: "Software · Hardware · Networking", href: "/services/it-infrastructure", float: "heroSvcFloat1" },
-              { icon: Boxes,      title: "ERP Implementation", caption: "Odoo · Oracle · Custom",            href: "/services/erp",                float: "heroSvcFloat2" },
-              { icon: Smartphone, title: "Digital Services",   caption: "Web · App · UX Design",             href: "/services/web-ecommerce",      float: "heroSvcFloat3" },
+              { icon: Server,     title: "IT Infrastructure",  caption: "Software · Hardware · Networking", href: "/services/it-infrastructure" },
+              { icon: Boxes,      title: "ERP Implementation", caption: "Odoo · Oracle · Custom",            href: "/services/erp" },
+              { icon: Smartphone, title: "Digital Services",   caption: "Web · App · UX Design",             href: "/services/web-ecommerce" },
             ].map((p, i) => {
               const Icon = p.icon;
               return (
-                <div
+                <Link
                   key={p.title}
-                  className="hero-svc-floater"
-                  style={{
-                    animation: `heroFadeIn 0.9s ${0.8 + i * 0.15}s both, ${p.float} ${5 + i * 0.6}s ease-in-out ${i * 0.4 + 1.5}s infinite`,
-                  }}
+                  href={p.href}
+                  className="hero-svc-card"
+                  style={{ animation: `heroFadeIn 0.7s ${0.8 + i * 0.12}s both` }}
                 >
-                  <Link href={p.href} className="hero-svc-card">
-                    <div className="hero-svc-icon">
-                      <Icon size={22} color="var(--gold-100)" strokeWidth={1.6} />
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-syne), sans-serif",
-                          fontWeight: 700,
-                          fontSize: "0.9rem",
-                          color: "var(--text-primary)",
-                          letterSpacing: "-0.005em",
-                          lineHeight: 1.25,
-                        }}
-                      >
-                        {p.title}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "0.7rem",
-                          color: "rgba(245,241,230,0.7)",
-                          fontFamily: "var(--font-syne), sans-serif",
-                          letterSpacing: "0.02em",
-                          marginTop: "0.18rem",
-                          lineHeight: 1.45,
-                        }}
-                      >
-                        {p.caption}
-                      </div>
-                    </div>
-                    <ArrowUpRight size={14} color="var(--gold-300)" className="hero-svc-arrow" />
-                  </Link>
-                </div>
+                  <div className="hero-svc-icon">
+                    <Icon size={20} color="var(--gold-100)" strokeWidth={1.6} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="hero-svc-title">{p.title}</div>
+                    <div className="hero-svc-caption">{p.caption}</div>
+                  </div>
+                  <ArrowUpRight size={13} color="var(--gold-300)" className="hero-svc-arrow" />
+                </Link>
               );
             })}
           </div>
 
           {/* Trust strip — rating + active engagements */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.875rem",
-              padding: "0.625rem 1rem",
-              borderRadius: "100px",
-              background: "rgba(5,8,22,0.78)",
-              border: "1px solid rgba(212,175,55,0.32)",
-              backdropFilter: "blur(16px)",
-              alignSelf: "flex-end",
-              animation: "heroFadeIn 0.9s 1.4s both",
-              boxShadow: "0 8px 28px rgba(0,0,0,0.4)",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <Star size={13} color="#d4af37" fill="#d4af37" />
+          <div className="hero-trust-strip">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+              <Star size={12} color="#d4af37" fill="#d4af37" />
               <span
                 style={{
-                  fontSize: "0.875rem",
+                  fontSize: "0.8125rem",
                   fontWeight: 700,
                   color: "var(--gold-100)",
                   fontFamily: "var(--font-cormorant), serif",
@@ -790,7 +682,7 @@ export default function Hero() {
               </span>
               <span
                 style={{
-                  fontSize: "0.625rem",
+                  fontSize: "0.5625rem",
                   color: "rgba(245,241,230,0.65)",
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
@@ -800,12 +692,12 @@ export default function Hero() {
                 Executive
               </span>
             </div>
-            <div style={{ width: 1, height: 16, background: "rgba(212,175,55,0.3)" }} />
-            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <div style={{ width: 1, height: 14, background: "rgba(212,175,55,0.3)" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
               <span
                 style={{
-                  width: 7,
-                  height: 7,
+                  width: 6,
+                  height: 6,
                   borderRadius: "50%",
                   background: "var(--gold-400)",
                   display: "block",
@@ -816,7 +708,7 @@ export default function Hero() {
               />
               <span
                 style={{
-                  fontSize: "0.6875rem",
+                  fontSize: "0.625rem",
                   fontWeight: 600,
                   color: "var(--text-primary)",
                   fontFamily: "var(--font-syne), sans-serif",
@@ -1101,74 +993,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Carousel Controls ── */}
-      <button
-        onClick={prev}
-        aria-label="Previous scene"
-        style={{
-          position: "absolute",
-          left: "clamp(1rem, 3vw, 2.5rem)",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 8,
-          width: 48,
-          height: 48,
-          borderRadius: "50%",
-          background: "rgba(5,8,22,0.6)",
-          border: "1px solid rgba(212,175,55,0.3)",
-          color: "var(--gold-200)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          backdropFilter: "blur(12px)",
-          transition: "background 0.3s ease, border-color 0.3s ease",
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = "rgba(212,175,55,0.15)";
-          e.currentTarget.style.borderColor = "var(--gold-400)";
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = "rgba(5,8,22,0.6)";
-          e.currentTarget.style.borderColor = "rgba(212,175,55,0.3)";
-        }}
-      >
-        <ChevronLeft size={20} />
-      </button>
-
-      <button
-        onClick={next}
-        aria-label="Next scene"
-        style={{
-          position: "absolute",
-          right: "clamp(1rem, 3vw, 2.5rem)",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 8,
-          width: 48,
-          height: 48,
-          borderRadius: "50%",
-          background: "rgba(5,8,22,0.6)",
-          border: "1px solid rgba(212,175,55,0.3)",
-          color: "var(--gold-200)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          backdropFilter: "blur(12px)",
-          transition: "background 0.3s ease, border-color 0.3s ease",
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = "rgba(212,175,55,0.15)";
-          e.currentTarget.style.borderColor = "var(--gold-400)";
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = "rgba(5,8,22,0.6)";
-          e.currentTarget.style.borderColor = "rgba(212,175,55,0.3)";
-        }}
-      >
-        <ChevronRight size={20} />
-      </button>
+      {/* Carousel arrows removed — they overlapped the right-column
+          service cards on desktop, making the cards appear cut off.
+          Slide navigation is handled by the dot indicators below. */}
 
       {/* Scene label + dot indicators */}
       <div
@@ -1349,105 +1176,6 @@ export default function Hero() {
         @keyframes heroFloat3 { 0%,100%{transform:translateX(-50%) translateY(0);}    50%{transform:translateX(-50%) translateY(10px);} }
         @keyframes heroFloat4 { 0%,100%{transform:translateY(-50%) translateX(0);}    50%{transform:translateY(-50%) translateX(9px);} }
 
-        /* ── Hero service-pillar cards (right column) ── */
-        .hero-svc-row {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: 0.75rem;
-          max-width: 360px;
-          width: 100%;
-          margin-left: auto;
-        }
-        .hero-svc-floater {
-          display: block;
-          width: 100%;
-          will-change: transform;
-        }
-        .hero-svc-card {
-          width: 100%;
-          flex-direction: row !important;
-          align-items: center !important;
-          gap: 0.95rem;
-          padding: 0.85rem 1rem !important;
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 1.1rem 1rem 1.25rem;
-          border-radius: 0.875rem;
-          background: linear-gradient(160deg, rgba(10,17,41,0.78) 0%, rgba(5,8,22,0.65) 100%);
-          border: 1px solid rgba(212,175,55,0.22);
-          backdrop-filter: blur(12px) saturate(140%);
-          -webkit-backdrop-filter: blur(12px) saturate(140%);
-          text-decoration: none;
-          overflow: hidden;
-          transition: border-color 0.35s ease, transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s ease;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
-          will-change: transform;
-        }
-        /* Diagonal shimmer sweep that cycles across each card every 6s,
-           offset per-card with animation-delay so attention rotates between them */
-        .hero-svc-card::before {
-          content: "";
-          position: absolute;
-          inset: -1px;
-          border-radius: inherit;
-          background: linear-gradient(120deg, transparent 30%, rgba(243,230,176,0.16) 50%, transparent 70%);
-          background-size: 250% 100%;
-          animation: heroSvcShimmer 6s ease-in-out infinite;
-          pointer-events: none;
-          z-index: 1;
-        }
-        .hero-svc-row > .hero-svc-floater:nth-child(2) .hero-svc-card::before { animation-delay: 2s; }
-        .hero-svc-row > .hero-svc-floater:nth-child(3) .hero-svc-card::before { animation-delay: 4s; }
-        .hero-svc-card > * { position: relative; z-index: 2; }
-        .hero-svc-icon {
-          width: 44px;
-          height: 44px;
-          border-radius: 0.625rem;
-          background: linear-gradient(135deg, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0.06) 100%);
-          border: 1px solid rgba(212,175,55,0.45);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          box-shadow: 0 0 22px rgba(212,175,55,0.22), inset 0 0 12px rgba(212,175,55,0.08);
-          animation: heroSvcIconPulse 3.6s ease-in-out infinite;
-          transition: transform 0.5s cubic-bezier(.22,1,.36,1);
-        }
-        .hero-svc-row > .hero-svc-floater:nth-child(2) .hero-svc-icon { animation-delay: 1.2s; }
-        .hero-svc-row > .hero-svc-floater:nth-child(3) .hero-svc-icon { animation-delay: 2.4s; }
-        .hero-svc-arrow {
-          flex-shrink: 0;
-          opacity: 0.5;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .hero-svc-card:hover {
-          border-color: rgba(212,175,55,0.7);
-          transform: translateY(-6px) scale(1.02);
-          box-shadow: 0 14px 44px rgba(0,0,0,0.5), 0 0 28px rgba(212,175,55,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
-        }
-        .hero-svc-card:hover .hero-svc-icon {
-          transform: rotate(360deg) scale(1.08);
-        }
-        .hero-svc-card:hover .hero-svc-arrow {
-          opacity: 1;
-          transform: translate(2px, -2px);
-        }
-        @keyframes heroSvcShimmer {
-          0%   { background-position: 200% 0; }
-          50%  { background-position: -200% 0; }
-          100% { background-position: -200% 0; }
-        }
-        @keyframes heroSvcIconPulse {
-          0%, 100% { box-shadow: 0 0 22px rgba(212,175,55,0.22), inset 0 0 12px rgba(212,175,55,0.08); }
-          50%      { box-shadow: 0 0 38px rgba(212,175,55,0.5),  inset 0 0 18px rgba(212,175,55,0.18); }
-        }
-        @keyframes heroSvcFloat1 { 0%,100% { transform: translateY(0); }     50% { transform: translateY(-6px); } }
-        @keyframes heroSvcFloat2 { 0%,100% { transform: translateY(0); }     50% { transform: translateY(-8px); } }
-        @keyframes heroSvcFloat3 { 0%,100% { transform: translateY(0); }     50% { transform: translateY(-5px); } }
-
         /* ── Galaxy dot indicators ── */
         @keyframes starTwinkle {
           0%,100% { box-shadow: 0 0 18px rgba(243,230,176,0.95), 0 0 36px rgba(212,175,55,0.6),  0 0 64px rgba(212,175,55,0.32); }
@@ -1487,61 +1215,262 @@ export default function Hero() {
           pointer-events: none;
         }
 
+        /* ── Hero CTA buttons ── */
+        .hero-cta-row {
+          display: flex;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.25rem;
+        }
+        .hero-cta {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.85rem 1.5rem;
+          border-radius: 8px;
+          font-family: var(--font-syne), sans-serif;
+          font-weight: 700;
+          font-size: 0.8125rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          text-decoration: none;
+          overflow: hidden;
+          isolation: isolate;
+          transition: transform 0.35s cubic-bezier(.22,1,.36,1),
+                      box-shadow 0.35s ease,
+                      border-color 0.35s ease,
+                      color 0.35s ease,
+                      background 0.35s ease;
+        }
+        .hero-cta-icon, .hero-cta-arrow {
+          flex-shrink: 0;
+          transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+        }
+        .hero-cta:hover .hero-cta-icon { transform: rotate(-12deg) scale(1.1); }
+        .hero-cta:hover .hero-cta-arrow { transform: translate(3px, -3px); }
+
+        /* Primary — gold gradient with pulsing glow + sweep on hover */
+        .hero-cta-primary {
+          color: #050816;
+          background: linear-gradient(135deg, #d4af37 0%, #f3e6b0 50%, #c9a44c 100%);
+          background-size: 220% 220%;
+          background-position: 0% 50%;
+          border: 1px solid rgba(212,175,55,0.65);
+          box-shadow:
+            0 8px 30px rgba(212,175,55,0.38),
+            inset 0 1px 0 rgba(255,255,255,0.55);
+          animation: heroCtaGoldPulse 4s ease-in-out infinite;
+        }
+        .hero-cta-primary:hover {
+          transform: translateY(-2px);
+          background-position: 100% 50%;
+          box-shadow:
+            0 14px 44px rgba(212,175,55,0.55),
+            inset 0 1px 0 rgba(255,255,255,0.65);
+        }
+        .hero-cta-shine {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%);
+          transform: translateX(-110%);
+          pointer-events: none;
+          z-index: 1;
+        }
+        .hero-cta-primary:hover .hero-cta-shine {
+          animation: heroCtaShine 0.85s ease forwards;
+        }
+        @keyframes heroCtaShine {
+          to { transform: translateX(110%); }
+        }
+        @keyframes heroCtaGoldPulse {
+          0%, 100% { box-shadow: 0 8px 30px rgba(212,175,55,0.38), inset 0 1px 0 rgba(255,255,255,0.55); }
+          50%      { box-shadow: 0 8px 38px rgba(212,175,55,0.55), inset 0 1px 0 rgba(255,255,255,0.55); }
+        }
+
+        /* Ghost — outlined with animated gold ring on hover */
+        .hero-cta-ghost {
+          color: var(--gold-200);
+          background: rgba(245,241,230,0.04);
+          border: 1px solid rgba(212,175,55,0.4);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+        }
+        .hero-cta-ghost::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0) 50%, rgba(212,175,55,0.18));
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          z-index: -1;
+        }
+        .hero-cta-ghost:hover {
+          color: var(--gold-100);
+          border-color: var(--gold-400);
+          transform: translateY(-2px);
+          box-shadow: 0 0 0 4px rgba(212,175,55,0.12), 0 10px 28px rgba(212,175,55,0.18);
+        }
+        .hero-cta-ghost:hover::before { opacity: 1; }
+
+        /* ── Right-column service cards ── */
+        .hero-svc-row {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.55rem;
+          max-width: 380px;
+          width: 100%;
+          margin-left: auto;
+        }
+        .hero-svc-card {
+          position: relative;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          padding: 0.7rem 0.9rem;
+          border-radius: 10px;
+          background: linear-gradient(160deg, rgba(10,17,41,0.82) 0%, rgba(5,8,22,0.7) 100%);
+          border: 1px solid rgba(212,175,55,0.25);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+          text-decoration: none;
+          overflow: hidden;
+          transition: border-color 0.3s ease, transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
+          box-shadow: 0 6px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+          will-change: transform;
+        }
+        .hero-svc-card::before {
+          content: "";
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: linear-gradient(120deg, transparent 30%, rgba(243,230,176,0.16) 50%, transparent 70%);
+          background-size: 250% 100%;
+          animation: heroSvcShimmer 6s ease-in-out infinite;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .hero-svc-row > .hero-svc-card:nth-child(2)::before { animation-delay: 2s; }
+        .hero-svc-row > .hero-svc-card:nth-child(3)::before { animation-delay: 4s; }
+        .hero-svc-card > * { position: relative; z-index: 1; }
+        @keyframes heroSvcShimmer {
+          0%   { background-position: 200% 0; }
+          50%  { background-position: -200% 0; }
+          100% { background-position: -200% 0; }
+        }
+
+        .hero-svc-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          background: linear-gradient(135deg, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0.06) 100%);
+          border: 1px solid rgba(212,175,55,0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          box-shadow: 0 0 16px rgba(212,175,55,0.2), inset 0 0 8px rgba(212,175,55,0.06);
+          transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+        }
+        .hero-svc-title {
+          font-family: var(--font-syne), sans-serif;
+          font-weight: 700;
+          font-size: 0.8125rem;
+          color: var(--text-primary);
+          letter-spacing: -0.005em;
+          line-height: 1.2;
+        }
+        .hero-svc-caption {
+          font-size: 0.6875rem;
+          color: rgba(245,241,230,0.7);
+          font-family: var(--font-syne), sans-serif;
+          letter-spacing: 0.02em;
+          margin-top: 0.18rem;
+          line-height: 1.4;
+        }
+        .hero-svc-arrow { flex-shrink: 0; opacity: 0.5; transition: opacity 0.25s ease, transform 0.25s ease; }
+        .hero-svc-card:hover {
+          border-color: rgba(212,175,55,0.7);
+          transform: translateY(-3px);
+          box-shadow: 0 14px 40px rgba(0,0,0,0.5), 0 0 24px rgba(212,175,55,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        .hero-svc-card:hover .hero-svc-icon { transform: rotate(360deg) scale(1.06); }
+        .hero-svc-card:hover .hero-svc-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+        /* Trust strip */
+        .hero-trust-strip {
+          display: flex;
+          align-items: center;
+          gap: 0.7rem;
+          padding: 0.5rem 0.85rem;
+          border-radius: 100px;
+          background: rgba(5,8,22,0.78);
+          border: 1px solid rgba(212,175,55,0.32);
+          backdrop-filter: blur(14px);
+          align-self: flex-end;
+          animation: heroFadeIn 0.9s 1.4s both;
+          box-shadow: 0 6px 22px rgba(0,0,0,0.4);
+        }
+
         /* ── Responsive — Tablet & smaller ── */
         @media (max-width: 1024px) {
-          .hero-section { height: auto !important; min-height: 100svh !important; }
           .hero-grid {
             flex-direction: column !important;
-            gap: 2.5rem !important;
+            gap: 1.5rem !important;
             align-items: stretch !important;
           }
           .hero-grid > div:first-child {
             width: 100% !important;
             max-width: 100% !important;
           }
-          .hero-right-panel {
-            min-height: auto !important;
-            padding: 0 !important;
-          }
-          .hero-svc-row {
+          .hero-right-panel { padding: 0 !important; }
+          .hero-svc-row, .hero-svc-head, .hero-trust-strip {
             margin-left: 0 !important;
             max-width: 100% !important;
+            align-self: stretch !important;
+            text-align: left !important;
             align-items: stretch !important;
           }
-          section[aria-label*="Hero"] button[aria-label="Previous scene"],
-          section[aria-label*="Hero"] button[aria-label="Next scene"] { display: none !important; }
+          .hero-svc-head { align-items: flex-start !important; text-align: left !important; }
         }
 
-        /* ── Phone — tighter sizing, stacked, easy to scan ── */
+        /* ── Phone ── */
         @media (max-width: 640px) {
           .hero-section .headline-hero {
-            font-size: clamp(2.25rem, 9vw, 3rem) !important;
+            font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
             line-height: 1.1 !important;
           }
           .hero-grid {
-            padding: clamp(5.5rem, 10vh, 7rem) 1.25rem 2rem !important;
-            gap: 2rem !important;
+            padding: clamp(4.5rem, 8vh, 5.5rem) 1rem 1.25rem !important;
+            gap: 1.25rem !important;
           }
-          .hero-svc-row { gap: 0.625rem !important; }
-          .hero-svc-card { padding: 0.75rem 0.875rem !important; }
-          .hero-svc-icon { width: 38px !important; height: 38px !important; }
           .hero-ticker-wrap { display: none !important; }
+          .hero-cta { width: 100%; justify-content: center; padding: 0.75rem 1rem; font-size: 0.75rem; }
+          .hero-cta-row { gap: 0.5rem; margin-bottom: 1rem; }
+          .hero-svc-card { padding: 0.6rem 0.75rem; }
+          .hero-svc-icon { width: 32px; height: 32px; }
+          /* Hide bottom carousel slide caption + dots on mobile — they overlap content */
+          .hero-slide-indicator { display: none !important; }
+          /* Hide vertical "Discover" scroll cue on mobile */
+          .hero-scroll-cue { display: none !important; }
         }
 
         /* ── Mid viewports — drop ticker to fit ── */
         @media (min-width: 1025px) and (max-height: 900px) {
           .hero-ticker-wrap { display: none !important; }
-          .hero-grid { padding-top: clamp(5.5rem, 10vh, 7rem) !important; }
+          .hero-grid { padding-top: clamp(5rem, 9vh, 6.5rem) !important; }
         }
 
         /* ── Short viewports — also tighten margins ── */
-        @media (min-width: 1025px) and (max-height: 760px) {
-          .hero-grid { padding-top: clamp(5rem, 8vh, 6rem) !important; padding-bottom: 1.5rem !important; }
+        @media (min-width: 1025px) and (max-height: 820px) {
+          .hero-grid { padding-top: clamp(4.5rem, 7vh, 5.5rem) !important; padding-bottom: 4.5rem !important; }
+          .hero-trust-strip { display: none !important; }
         }
-
-        /* ── Very short viewports — allow scroll ── */
-        @media (max-height: 640px) {
-          .hero-section { height: auto !important; min-height: 100svh !important; }
+        @media (min-width: 1025px) and (max-height: 720px) {
+          .hero-svc-head { display: none !important; }
         }
       `}</style>
     </section>

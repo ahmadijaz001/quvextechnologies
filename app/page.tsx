@@ -8,7 +8,7 @@ import TechPartners from "@/components/sections/TechPartners";
 import Testimonials from "@/components/sections/Testimonials";
 import BlogPreview from "@/components/sections/BlogPreview";
 import CTABanner from "@/components/sections/CTABanner";
-import HomeStarBackdrop from "@/components/sections/HomeStarBackdrop";
+import PageStarBackdrop from "@/components/sections/PageStarBackdrop";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <HomeStarBackdrop />
+      <PageStarBackdrop />
       <div className="cosmic-page">
         <Hero />
         <TrustedBy />

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import CTABanner from "@/components/sections/CTABanner";
+import PageStarBackdrop from "@/components/sections/PageStarBackdrop";
 import { ArrowUpRight } from "lucide-react";
 
 
@@ -22,55 +23,63 @@ const industries = [
 export default function IndustriesPage() {
   return (
     <>
-      <section style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "4rem", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
-        <div className="section-container" style={{ textAlign: "center" }}>
-          <p className="label-tag" style={{ marginBottom: "1rem" }}>Industry Expertise</p>
-          <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
-            Solutions Built for <span className="gradient-text">Every Sector</span>
-          </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "600px", margin: "0 auto" }}>
-            12 industries. 150+ clients. Deep domain expertise that goes beyond technology into understanding your business context, regulations, and competitive landscape.
-          </p>
-        </div>
-      </section>
-
-      <section className="section-padding" style={{ background: "var(--bg-primary)" }}>
-        <div className="section-container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
-            {industries.map(ind => (
-              <Link
-                key={ind.slug}
-                href={`/industries/${ind.slug}`}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                  borderRadius: "1rem",
-                  background: "var(--card-bg)",
-                  border: "1px solid var(--border)",
-                  textDecoration: "none",
-                  transition: "border-color 0.3s, transform 0.3s",
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${ind.color}35`; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
-              >
-                <span style={{ fontSize: "2.5rem", marginBottom: "1.25rem" }} role="img">{ind.icon}</span>
-                <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1.0625rem", color: "var(--text-primary)", marginBottom: "0.625rem" }}>{ind.name}</h2>
-                <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.65, flex: 1 }}>{ind.desc}</p>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginTop: "1.25rem", fontSize: "0.8125rem", color: ind.color, fontWeight: 500 }}>
-                  See Solutions <ArrowUpRight size={13} />
-                </div>
-              </Link>
-            ))}
+      <PageStarBackdrop />
+      <div className="cosmic-page">
+        <section className="page-hero" style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "4rem", borderBottom: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
+          <div className="section-container" style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+            <p className="label-tag" style={{ marginBottom: "1rem" }}>Industry Expertise</p>
+            <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
+              Solutions Built for <span className="gradient-text">Every Sector</span>
+            </h1>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "600px", margin: "0 auto" }}>
+              12 industries. 150+ clients. Deep domain expertise that goes beyond technology into understanding your business context, regulations, and competitive landscape.
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <CTABanner />
+        <section className="section-padding">
+          <div className="section-container">
+            <div className="industries-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+              {industries.map(ind => (
+                <Link
+                  key={ind.slug}
+                  href={`/industries/${ind.slug}`}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "2rem",
+                    borderRadius: "1rem",
+                    background: "var(--card-bg)",
+                    border: "1px solid var(--border)",
+                    textDecoration: "none",
+                    transition: "border-color 0.3s, transform 0.3s",
+                    backdropFilter: "blur(12px)",
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${ind.color}35`; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+                >
+                  <span style={{ fontSize: "2.5rem", marginBottom: "1.25rem" }} role="img">{ind.icon}</span>
+                  <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1.0625rem", color: "var(--text-primary)", marginBottom: "0.625rem" }}>{ind.name}</h2>
+                  <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.65, flex: 1 }}>{ind.desc}</p>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginTop: "1.25rem", fontSize: "0.8125rem", color: ind.color, fontWeight: 500 }}>
+                    See Solutions <ArrowUpRight size={13} />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CTABanner />
+      </div>
 
       <style>{`
-        @media (max-width: 900px) { section > div > div[style*="repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 600px) { section > div > div[style*="repeat(3"] { grid-template-columns: 1fr !important; } }
+        @media (max-width: 1024px) { .industries-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 640px) {
+          .industries-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          .industries-grid > a { padding: 1.5rem !important; }
+          .page-hero { padding-top: clamp(5rem, 18vw, 7rem) !important; padding-bottom: 2.5rem !important; }
+        }
       `}</style>
     </>
   );

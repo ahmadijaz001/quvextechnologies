@@ -78,7 +78,7 @@
   --glass-blur:       blur(24px) saturate(140%);
 
   /* ── Layout ── */
-  --section-padding:  clamp(96px, 11vw, 160px);
+  --section-padding:  clamp(56px, 6.5vw, 104px);
   --container-max:    1440px;
 
   /* ── Card surfaces ── */
@@ -105,8 +105,8 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  /* ── Root font-size lift: every rem-based size grows proportionally ── */
-  font-size: 112.5%;          /* 18px base — was 16px */
+  /* 100% root → 1rem = 16px so the design reads naturally at 100% browser zoom. */
+  font-size: 100%;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -121,9 +121,9 @@ body {
   background-attachment: fixed;
   color: var(--text-primary);
   font-family: 'Manrope', 'Inter', 'Satoshi', system-ui, sans-serif;
-  font-size: 1.0625rem;        /* ~19px — premium body baseline */
+  font-size: 1rem;
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.65;
   letter-spacing: -0.005em;
   overflow-x: hidden;
   cursor: none;
@@ -131,7 +131,7 @@ body {
 }
 
 /* Default paragraph rhythm */
-p { font-size: 1.0625rem; line-height: 1.75; }
+p { font-size: 1rem; line-height: 1.65; }
 
 /* Subtle starfield / particle overlay on body */
 body::before {
@@ -168,27 +168,27 @@ body::before {
 .headline-hero {
   font-family: 'Playfair Display', 'Cormorant Garamond', serif;
   font-weight: 600;
-  font-size: clamp(3.75rem, 9.5vw, 9.5rem);
+  font-size: clamp(2.75rem, 7vw, 6.5rem);
   letter-spacing: -0.025em;
-  line-height: 1.0;
+  line-height: 1.04;
   color: var(--text-primary);
 }
 
 .headline-section {
   font-family: 'Playfair Display', 'Cormorant Garamond', serif;
   font-weight: 500;
-  font-size: clamp(3rem, 6vw, 5.25rem);
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
   letter-spacing: -0.022em;
-  line-height: 1.06;
+  line-height: 1.1;
   color: var(--text-primary);
 }
 
 .headline-display {
   font-family: 'Syne', 'Manrope', system-ui, sans-serif;
   font-weight: 700;
-  font-size: clamp(2.25rem, 3.6vw, 3rem);
+  font-size: clamp(1.625rem, 2.8vw, 2.25rem);
   letter-spacing: -0.02em;
-  line-height: 1.18;
+  line-height: 1.2;
   color: var(--text-primary);
 }
 
@@ -799,7 +799,7 @@ select.lux-input option { background: var(--bg-secondary); color: var(--text-pri
    ───────────────────────────────────────────────── */
 .count-number {
   font-family: 'Playfair Display', 'Cormorant Garamond', serif;
-  font-size: clamp(4rem, 8vw, 7.5rem);
+  font-size: clamp(2.75rem, 5.5vw, 5rem);
   font-weight: 500;
   line-height: 1;
   background: linear-gradient(180deg, #f3e6b0 0%, #d4af37 70%, #a8862a 100%);

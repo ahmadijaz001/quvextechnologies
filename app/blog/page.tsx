@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import PageStarBackdrop from "@/components/sections/PageStarBackdrop";
 import { Clock, ArrowUpRight } from "lucide-react";
 
 const posts = [
@@ -16,75 +17,84 @@ const categories = ["All", "ERP", "AI & Automation", "Cybersecurity", "eCommerce
 export default function BlogPage() {
   return (
     <>
-      <section style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "4rem", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
-        <div className="section-container" style={{ textAlign: "center" }}>
-          <p className="label-tag" style={{ marginBottom: "1rem" }}>Insights & Resources</p>
-          <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
-            Knowledge That <span className="gradient-text">Drives Decisions</span>
-          </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "560px", margin: "0 auto" }}>
-            Expert analysis on technology trends, implementation guides, and business insights — written by practitioners, not content mills.
-          </p>
-        </div>
-      </section>
-
-      <section className="section-padding" style={{ background: "var(--bg-primary)" }}>
-        <div className="section-container">
-          {/* Category filters */}
-          <div style={{ display: "flex", gap: "0.625rem", flexWrap: "wrap", marginBottom: "3rem" }}>
-            {categories.map((cat, i) => (
-              <button
-                key={cat}
-                style={{
-                  padding: "0.5rem 1rem",
-                  borderRadius: "100px",
-                  border: i === 0 ? "1px solid rgba(0,212,255,0.4)" : "1px solid var(--border)",
-                  background: i === 0 ? "rgba(0,212,255,0.08)" : "var(--card-bg)",
-                  color: i === 0 ? "var(--accent-primary)" : "var(--text-secondary)",
-                  fontSize: "0.875rem",
-                  fontWeight: 500,
-                  transition: "all 0.2s",
-                }}
-              >
-                {cat}
-              </button>
-            ))}
+      <PageStarBackdrop />
+      <div className="cosmic-page">
+        <section className="page-hero" style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "4rem", borderBottom: "1px solid var(--border)" }}>
+          <div className="section-container" style={{ textAlign: "center" }}>
+            <p className="label-tag" style={{ marginBottom: "1rem" }}>Insights & Resources</p>
+            <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
+              Knowledge That <span className="gradient-text">Drives Decisions</span>
+            </h1>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "560px", margin: "0 auto" }}>
+              Expert analysis on technology trends, implementation guides, and business insights — written by practitioners, not content mills.
+            </p>
           </div>
+        </section>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
-            {posts.map((post, i) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                style={{ display: "flex", flexDirection: "column", borderRadius: "1rem", background: "var(--card-bg)", border: "1px solid var(--border)", overflow: "hidden", textDecoration: "none", transition: "border-color 0.3s, transform 0.3s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${post.color}35`; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
-              >
-                <div style={{ height: i === 0 ? 180 : 120, background: `linear-gradient(135deg, ${post.color}12 0%, rgba(255,255,255,0.01) 100%)`, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--bg-tertiary)" }}>
-                  <span style={{ fontSize: "2.5rem" }} aria-hidden="true">
-                    {post.category === "ERP" ? "📊" : post.category === "AI & Automation" ? "🤖" : post.category === "Cybersecurity" ? "🔒" : post.category === "eCommerce" ? "🛍️" : post.category === "Digital Marketing" ? "📱" : "🖥️"}
-                  </span>
-                </div>
-                <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.875rem" }}>
-                    <span style={{ padding: "0.2rem 0.625rem", borderRadius: "100px", background: `${post.color}15`, color: post.color, fontSize: "0.6875rem", fontWeight: 600 }}>{post.category}</span>
-                    <span style={{ fontSize: "0.75rem", color: "var(--text-tertiary)", display: "flex", alignItems: "center", gap: "0.25rem" }}><Clock size={11} /> {post.readTime}</span>
+        <section className="section-padding">
+          <div className="section-container">
+            {/* Category filters */}
+            <div className="blog-filters" style={{ display: "flex", gap: "0.625rem", flexWrap: "wrap", marginBottom: "3rem" }}>
+              {categories.map((cat, i) => (
+                <button
+                  key={cat}
+                  style={{
+                    padding: "0.5rem 1rem",
+                    borderRadius: "100px",
+                    border: i === 0 ? "1px solid rgba(212,175,55,0.4)" : "1px solid var(--border)",
+                    background: i === 0 ? "rgba(212,175,55,0.08)" : "var(--card-bg)",
+                    color: i === 0 ? "var(--accent-primary)" : "var(--text-secondary)",
+                    fontSize: "0.875rem",
+                    fontWeight: 500,
+                    transition: "all 0.2s",
+                    backdropFilter: "blur(12px)",
+                  }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="blog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+              {posts.map((post, i) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  style={{ display: "flex", flexDirection: "column", borderRadius: "1rem", background: "var(--card-bg)", border: "1px solid var(--border)", overflow: "hidden", textDecoration: "none", transition: "border-color 0.3s, transform 0.3s", backdropFilter: "blur(12px)" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${post.color}35`; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+                >
+                  <div style={{ height: i === 0 ? 180 : 120, background: `linear-gradient(135deg, ${post.color}12 0%, rgba(255,255,255,0.01) 100%)`, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--bg-tertiary)" }}>
+                    <span style={{ fontSize: "2.5rem" }} aria-hidden="true">
+                      {post.category === "ERP" ? "📊" : post.category === "AI & Automation" ? "🤖" : post.category === "Cybersecurity" ? "🔒" : post.category === "eCommerce" ? "🛍️" : post.category === "Digital Marketing" ? "📱" : "🖥️"}
+                    </span>
                   </div>
-                  <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "0.9375rem", color: "var(--text-primary)", lineHeight: 1.35, marginBottom: "0.75rem", flex: 1 }}>{post.title}</h2>
-                  <p style={{ fontSize: "0.8375rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1rem" }}>{post.excerpt}</p>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ fontSize: "0.75rem", color: "var(--text-tertiary)" }}>{post.date}</span>
-                    <span style={{ display: "flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8125rem", color: "var(--accent-primary)", fontWeight: 500 }}>Read <ArrowUpRight size={13} /></span>
+                  <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.875rem", flexWrap: "wrap" }}>
+                      <span style={{ padding: "0.2rem 0.625rem", borderRadius: "100px", background: `${post.color}15`, color: post.color, fontSize: "0.6875rem", fontWeight: 600 }}>{post.category}</span>
+                      <span style={{ fontSize: "0.75rem", color: "var(--text-tertiary)", display: "flex", alignItems: "center", gap: "0.25rem" }}><Clock size={11} /> {post.readTime}</span>
+                    </div>
+                    <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "0.9375rem", color: "var(--text-primary)", lineHeight: 1.35, marginBottom: "0.75rem", flex: 1 }}>{post.title}</h2>
+                    <p style={{ fontSize: "0.8375rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "1rem" }}>{post.excerpt}</p>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span style={{ fontSize: "0.75rem", color: "var(--text-tertiary)" }}>{post.date}</span>
+                      <span style={{ display: "flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8125rem", color: "var(--accent-primary)", fontWeight: 500 }}>Read <ArrowUpRight size={13} /></span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <style>{`
-        @media (max-width: 900px) { section > div > div[style*="repeat(3"] { grid-template-columns: 1fr !important; } }
+        @media (max-width: 1024px) { .blog-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 640px) {
+          .blog-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          .page-hero { padding-top: clamp(5rem, 18vw, 7rem) !important; padding-bottom: 2.5rem !important; }
+          .blog-filters { gap: 0.45rem !important; margin-bottom: 1.75rem !important; }
+        }
       `}</style>
     </>
   );
