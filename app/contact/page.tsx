@@ -5,7 +5,7 @@ import Reveal from "@/components/shared/Reveal";
 
 const contactInfo = [
   { Icon: MapPin,  label: "Address",        value: "Sheikh Zayed Road, Tower One\nDubai, United Arab Emirates" },
-  { Icon: Phone,   label: "Phone",          value: "+971-4-000-0000" },
+  { Icon: Phone,   label: "Phone",          value: "+971 55 930 0437" },
   { Icon: Mail,    label: "Email",          value: "hello@akross.ae" },
   { Icon: Clock,   label: "Business Hours", value: "Mon–Fri: 9:00 AM – 6:00 PM GST\nSat: 10:00 AM – 2:00 PM GST" },
 ];
@@ -22,9 +22,10 @@ export default function ContactPage() {
     <>
       {/* Hero */}
       <section
+        className="contact-hero"
         style={{
-          paddingTop: "clamp(6rem,12vw,9rem)",
-          paddingBottom: "5rem",
+          paddingTop: "clamp(5.5rem,10vw,7.5rem)",
+          paddingBottom: "clamp(2.5rem,4vw,3.5rem)",
           background: "var(--bg-primary)",
           borderBottom: "1px solid var(--border)",
           position: "relative",
@@ -165,7 +166,11 @@ export default function ContactPage() {
 
         <style>{`
           @media (max-width: 900px) {
-            section > div > div[style*="2fr 3fr"] { grid-template-columns: 1fr !important; }
+            section > div > div[style*="2fr 3fr"] { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          }
+          @media (max-width: 640px) {
+            section > div > div[style*="2fr 3fr"] { gap: 1.5rem !important; }
+            section > div > div[style*="2fr 3fr"] > div { padding: 0 !important; }
           }
         `}</style>
       </section>

@@ -182,7 +182,7 @@ export default function Header() {
         {/* ── Right actions ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <Link
-            href="tel:+97140000000"
+            href="tel:+971559300437"
             aria-label="Call us"
             className="hidden-mobile"
             style={{
@@ -201,7 +201,7 @@ export default function Header() {
             onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,241,230,0.7)")}
           >
             <Phone size={13} />
-            <span>+971 4 000 0000</span>
+            <span>+971 55 930 0437</span>
           </Link>
 
           <Link
@@ -241,24 +241,14 @@ export default function Header() {
             Book Consultation
           </Link>
 
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger — visibility controlled entirely by CSS class */}
           <button
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(!mobileOpen)}
-            style={{
-              background: "rgba(212,175,55,0.08)",
-              border: "1px solid rgba(212,175,55,0.3)",
-              borderRadius: "4px",
-              color: "var(--gold-300)",
-              display: "none",
-              padding: "0.5rem",
-              cursor: "pointer",
-              transition: "background 0.3s ease",
-            }}
             className="mobile-hamburger"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </header>
@@ -274,12 +264,41 @@ export default function Header() {
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
 
       <style>{`
+        /* Hamburger — hidden on desktop, shown on tablet/phone */
+        .mobile-hamburger {
+          display: none;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          background: rgba(212,175,55,0.12);
+          border: 1px solid rgba(212,175,55,0.45);
+          border-radius: 8px;
+          color: var(--gold-200);
+          padding: 0;
+          cursor: pointer;
+          transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+          flex-shrink: 0;
+        }
+        .mobile-hamburger:hover,
+        .mobile-hamburger:focus-visible {
+          background: rgba(212,175,55,0.22);
+          border-color: rgba(212,175,55,0.75);
+          outline: none;
+        }
+        .mobile-hamburger:active { transform: scale(0.95); }
+
         @media (max-width: 1024px) {
           nav[aria-label="Main navigation"] { display: none !important; }
           .hidden-mobile { display: none !important; }
-          .mobile-hamburger { display: flex !important; }
+          .mobile-hamburger { display: inline-flex !important; }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 640px) {
+          /* On phone, hide the gold "Book Consultation" button so the hamburger
+             has room and is the obvious nav entry point */
+          .header-cta { display: none !important; }
+        }
+        @media (min-width: 641px) and (max-width: 1024px) {
           .header-cta { padding: 0.5rem 1rem !important; font-size: 0.6875rem !important; }
         }
       `}</style>

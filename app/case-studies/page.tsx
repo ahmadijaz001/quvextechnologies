@@ -15,7 +15,7 @@ const cases = [
 export default function CaseStudiesPage() {
   return (
     <>
-      <section style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "4rem", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
+      <section style={{ paddingTop: "clamp(5.5rem,10vw,7.5rem)", paddingBottom: "clamp(2.5rem,4vw,3rem)", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
         <div className="section-container" style={{ textAlign: "center" }}>
           <p className="label-tag" style={{ marginBottom: "1rem" }}>Proven Results</p>
           <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
@@ -65,7 +65,11 @@ export default function CaseStudiesPage() {
       <CTABanner />
 
       <style>{`
-        @media (max-width: 900px) { section > div > div[style*="repeat(3"] { grid-template-columns: 1fr !important; } }
+        @media (max-width: 1024px) { section > div > div[style*="repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; gap: 1.25rem !important; } }
+        @media (max-width: 640px) {
+          section > div > div[style*="repeat(3"] { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          section[style*="padding"] { padding-top: clamp(2.5rem, 8vw, 4rem) !important; padding-bottom: clamp(2.5rem, 8vw, 4rem) !important; }
+        }
       `}</style>
     </>
   );

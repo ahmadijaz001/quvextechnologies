@@ -17,8 +17,10 @@
   /* Surface gradients */
   --gradient-midnight: linear-gradient(180deg, #050816 0%, #02040c 100%);
   --gradient-navy:     linear-gradient(135deg, #0a1129 0%, #111d44 100%);
-  --gradient-aurora:   radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.10) 0%, transparent 65%),
-                       linear-gradient(180deg, #050816 0%, #0a1129 50%, #02040c 100%);
+  --gradient-aurora:   radial-gradient(ellipse 100% 60% at 50% 0%, rgba(86,160,220,0.22) 0%, transparent 70%),
+                       radial-gradient(ellipse 80% 60% at 25% 80%, rgba(80,40,140,0.18) 0%, transparent 65%),
+                       radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 65%),
+                       linear-gradient(180deg, #1b3056 0%, #0f1d3d 25%, #050a1c 70%, #02040c 100%);
 
   /* ── Text ── */
   --text-primary:    #f5f1e6;   /* warm ivory */
@@ -368,6 +370,17 @@ body::before {
   text-decoration: none;
   backdrop-filter: blur(8px);
 }
+
+/* Mobile / phone — buttons compact and readable, never overflow */
+@media (max-width: 640px) {
+  .btn-primary, .btn-outline {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    width: 100%;
+    max-width: 320px;
+  }
+}
 .btn-outline:hover {
   background: rgba(212,175,55,0.08);
   border-color: var(--gold-400);
@@ -677,6 +690,23 @@ body::before {
 }
 .lux-input::placeholder { color: var(--text-tertiary); }
 select.lux-input option { background: var(--bg-secondary); color: var(--text-primary); }
+
+/* Compact form variant — used in service-hero side panel so hero+form fits one screen */
+.lux-form-compact .lux-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.35rem;
+}
+.lux-form-compact .lux-input {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  border-radius: 5px;
+}
+.lux-form-compact button[type="submit"] {
+  padding: 0.625rem 1.25rem !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.06em !important;
+}
 
 /* ─────────────────────────────────────────────────
    CAROUSEL DOTS

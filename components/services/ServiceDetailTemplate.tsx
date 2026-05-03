@@ -451,8 +451,8 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
       <section
         className="svc-hero"
         style={{
-          paddingTop: "clamp(6rem,12vw,9rem)",
-          paddingBottom: "5rem",
+          paddingTop: "clamp(6rem,10vw,7.5rem)",
+          paddingBottom: "clamp(2.5rem,4vw,3.5rem)",
           background: "var(--bg-primary)",
           borderBottom: "1px solid var(--border)",
           ["--accent" as never]: accentHex,
@@ -498,19 +498,22 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
               </Reveal>
 
               <Reveal delay={100}>
-                <h1 className="headline-section" style={{ marginBottom: "1.25rem", maxWidth: "22ch" }}>
+                <h1
+                  className="headline-section svc-detail-h1"
+                  style={{ marginBottom: "1rem", maxWidth: "22ch", fontSize: "clamp(1.875rem, 3.6vw, 3rem)", lineHeight: 1.1 }}
+                >
                   {service.name}
                 </h1>
               </Reveal>
 
               <Reveal delay={150}>
-                <p style={{ fontSize: "1.125rem", color: "var(--text-secondary)", lineHeight: 1.75, maxWidth: "580px", marginBottom: "2.5rem" }}>
+                <p style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.65, maxWidth: "560px", marginBottom: "1.75rem" }}>
                   {service.tagline}
                 </p>
               </Reveal>
 
               <Reveal delay={200}>
-                <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                   <Link href={`/book-consultation?service=${service.slug}`} className="btn-primary">
                     Get a Free Quote
                   </Link>
@@ -522,10 +525,10 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
 
               {/* Trust micro-signals */}
               <Reveal delay={250}>
-                <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", marginTop: "2.5rem" }}>
+                <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap", marginTop: "1.5rem" }}>
                   {["Free consultation", "Response in 2 hrs", "No commitment required"].map(sig => (
-                    <span key={sig} style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.8125rem", color: "var(--text-tertiary)" }}>
-                      <CheckCircle2 size={13} style={{ color: accentHex }} />
+                    <span key={sig} style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.75rem", color: "var(--text-tertiary)" }}>
+                      <CheckCircle2 size={12} style={{ color: accentHex }} />
                       {sig}
                     </span>
                   ))}
@@ -535,14 +538,14 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
 
             {/* Right — Contact form (replaces previous tech card so users can enquire directly) */}
             <Reveal direction="right" delay={150}>
-              <div className="glass-card" style={{ borderRadius: "1.5rem", overflow: "hidden", border: `1px solid ${accentHex}20`, background: `linear-gradient(135deg, ${accentHex}08 0%, rgba(123,47,255,0.06) 50%, rgba(0,102,255,0.04) 100%)`, padding: "2rem", position: "relative" }}>
+              <div className="glass-card" style={{ borderRadius: "1.25rem", overflow: "hidden", border: `1px solid ${accentHex}20`, background: `linear-gradient(135deg, ${accentHex}08 0%, rgba(123,47,255,0.06) 50%, rgba(0,102,255,0.04) 100%)`, padding: "1.5rem 1.5rem 1.25rem", position: "relative" }}>
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <p className="label-tag" style={{ marginBottom: "0.5rem", color: accentHex }}>Contact Us</p>
-                  <h3 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.25rem", color: "var(--text-primary)", marginBottom: "0.5rem", lineHeight: 1.25 }}>
+                  <p className="label-tag" style={{ marginBottom: "0.35rem", color: accentHex, fontSize: "0.625rem" }}>Contact Us</p>
+                  <h3 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: "1.0625rem", color: "var(--text-primary)", marginBottom: "0.35rem", lineHeight: 1.25 }}>
                     Enquire About {service.name}
                   </h3>
-                  <p style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1.25rem" }}>
-                    Get a tailored proposal within 2 business hours.
+                  <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "0.875rem" }}>
+                    Tailored proposal within 2 business hours.
                   </p>
                   <ContactForm
                     defaultService={service.name}
@@ -558,7 +561,13 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
 
         <style>{`
           @media (max-width: 960px) {
-            .svc-hero > div.section-container > div[style*="1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+            .svc-hero > div.section-container > div[style*="1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          }
+          @media (max-width: 640px) {
+            .svc-hero { padding-top: clamp(5.5rem, 12vw, 7rem) !important; padding-bottom: 2.5rem !important; }
+            .svc-hero .section-container { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+            .svc-hero .glass-card { padding: 1.25rem !important; border-radius: 1rem !important; }
+            .svc-hero .headline-section { font-size: clamp(1.875rem, 7vw, 2.5rem) !important; line-height: 1.15 !important; }
           }
         `}</style>
       </section>
@@ -1051,7 +1060,13 @@ export default function ServiceDetailTemplate({ service, category }: ServiceDeta
             </Reveal>
           </div>
 
-          <style>{`@media (max-width: 900px) { section > div > div[style*="2fr 3fr"] { grid-template-columns: 1fr !important; } }`}</style>
+          <style>{`
+            @media (max-width: 900px) { section > div > div[style*="2fr 3fr"] { grid-template-columns: 1fr !important; gap: 2rem !important; } }
+            @media (max-width: 640px) {
+              section > div > div[style*="2fr 3fr"] > div:last-child > div { padding: 1.5rem !important; }
+              section > div > div[style*="2fr 3fr"] { gap: 1.5rem !important; }
+            }
+          `}</style>
         </div>
       </section>
 

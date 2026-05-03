@@ -42,7 +42,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "5rem", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
+      <section style={{ paddingTop: "clamp(5.5rem,10vw,7.5rem)", paddingBottom: "clamp(2.5rem,4vw,3.5rem)", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
         <div className="section-container" style={{ textAlign: "center" }}>
           <p className="label-tag" style={{ marginBottom: "1rem" }}>Our Story</p>
           <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
@@ -193,6 +193,21 @@ export default function AboutPage() {
       </section>
 
       <CTABanner />
+
+      <style>{`
+        /* Tablet — collapse 5/3-col grids to 2 col */
+        @media (max-width: 960px) {
+          section > div > div[style*="repeat(5"] { grid-template-columns: repeat(2, 1fr) !important; }
+          section > div > div[style*="repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        /* Phone — stack everything single column */
+        @media (max-width: 640px) {
+          section > div > div[style*="repeat(5"],
+          section > div > div[style*="repeat(3"],
+          section > div > div[style*="repeat(2"] { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          section[style*="padding"] { padding-top: clamp(2.5rem, 8vw, 4rem) !important; padding-bottom: clamp(2.5rem, 8vw, 4rem) !important; }
+        }
+      `}</style>
     </>
   );
 }

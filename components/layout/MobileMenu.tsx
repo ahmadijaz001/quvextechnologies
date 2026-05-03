@@ -30,18 +30,28 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
     <div
       aria-modal={open}
       aria-label="Mobile navigation"
+      aria-hidden={!open}
       style={{
         position: "fixed",
-        inset: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: "100dvh",
         background: "linear-gradient(180deg, #050816 0%, #02040c 100%)",
         backdropFilter: "blur(28px)",
-        zIndex: 9100,
-        padding: "1.75rem",
+        WebkitBackdropFilter: "blur(28px)",
+        zIndex: 99990,
+        padding: "1.75rem 1.5rem 2.5rem",
         display: "flex",
         flexDirection: "column",
         transform: open ? "translateX(0)" : "translateX(100%)",
         transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1)",
         borderLeft: "1px solid rgba(212,175,55,0.2)",
+        visibility: open ? "visible" : "hidden",
+        overflowY: "auto",
+        WebkitOverflowScrolling: "touch",
+        pointerEvents: open ? "auto" : "none",
       }}
     >
       {/* Ambient gold glow */}
@@ -176,7 +186,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
           Book Consultation
         </Link>
         <Link
-          href="tel:+97140000000"
+          href="tel:+971559300437"
           onClick={onClose}
           style={{
             textAlign: "center",
@@ -191,7 +201,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
             background: "rgba(212,175,55,0.04)",
           }}
         >
-          +971 4 000 0000
+          +971 55 930 0437
         </Link>
       </div>
 

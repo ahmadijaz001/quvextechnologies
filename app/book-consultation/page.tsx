@@ -10,11 +10,27 @@ export default function BookConsultationPage() {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", service: "", budget: "", timeline: "", description: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await new Promise(r => setTimeout(r, 1000));
-    setSubmitted(true);
+    setSubmitting(true);
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, source: "booking" }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error ?? "Could not send your request. Please try again.");
+      setSubmitted(true);
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : "Could not send your request. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -36,7 +52,7 @@ export default function BookConsultationPage() {
 
   return (
     <>
-      <section style={{ paddingTop: "clamp(6rem,12vw,9rem)", paddingBottom: "4rem", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
+      <section style={{ paddingTop: "clamp(5.5rem,10vw,7.5rem)", paddingBottom: "clamp(2.5rem,4vw,3rem)", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
         <div className="section-container" style={{ textAlign: "center" }}>
           <p className="label-tag" style={{ marginBottom: "1rem" }}>Free Consultation</p>
           <h1 className="headline-section" style={{ marginBottom: "1.25rem" }}>
@@ -148,14 +164,31 @@ export default function BookConsultationPage() {
                   ))}
                 </div>
 
+                {errorMsg && (
+                  <div style={{ marginBottom: "1rem", padding: "0.75rem 1rem", borderRadius: "0.5rem", background: "rgba(255,77,106,0.08)", border: "1px solid rgba(255,77,106,0.25)", color: "#ff6b80", fontSize: "0.875rem" }}>
+                    {errorMsg}
+                  </div>
+                )}
                 <div style={{ display: "flex", gap: "0.875rem" }}>
-                  <button type="button" onClick={() => setStep(2)} className="btn-outline">Edit</button>
-                  <button type="submit" className="btn-primary">Submit Request</button>
+                  <button type="button" onClick={() => setStep(2)} className="btn-outline" disabled={submitting}>Edit</button>
+                  <button type="submit" className="btn-primary" disabled={submitting} style={{ opacity: submitting ? 0.7 : 1 }}>
+                    {submitting ? "Sending..." : "Submit Request"}
+                  </button>
                 </div>
               </div>
             )}
           </form>
         </div>
+
+        <style>{`
+          @media (max-width: 640px) {
+            section.section-padding form.glass-card { padding: 1.5rem !important; border-radius: 1rem !important; }
+            section.section-padding form.glass-card div[style*="grid-template-columns: 1fr 1fr"],
+            section.section-padding form.glass-card div[style*="gridTemplateColumns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+            section.section-padding form.glass-card button.btn-primary,
+            section.section-padding form.glass-card button.btn-outline { width: 100% !important; max-width: none !important; }
+          }
+        `}</style>
       </section>
     </>
   );

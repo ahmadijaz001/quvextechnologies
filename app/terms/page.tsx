@@ -19,7 +19,7 @@ export default function TermsPage() {
           { title: "3. Intellectual Property", content: "Unless otherwise agreed in writing, all deliverables created by aKross Information Technology become the property of the client upon full payment. aKross retains the right to showcase completed work in its portfolio. All website content (text, graphics, code) is owned by aKross Information Technology and may not be reproduced without permission." },
           { title: "4. Limitation of Liability", content: "To the maximum extent permitted by UAE law, aKross Information Technology shall not be liable for indirect, incidental, or consequential damages. Our liability is limited to the fees paid for the specific service giving rise to the claim in the preceding 12 months." },
           { title: "5. Governing Law", content: "These terms are governed by the laws of the United Arab Emirates and the emirate of Dubai. Any disputes shall be subject to the exclusive jurisdiction of the Dubai courts." },
-          { title: "6. Contact", content: "aKross Information Technology LLC\nSheikh Zayed Road, Dubai, UAE\nlegal@akross.ae" },
+          { title: "6. Contact", content: "aKross Information Technology LLC\nSheikh Zayed Road, Dubai, UAE\nhello@akross.ae\n+971 55 930 0437" },
         ].map(section => (
           <div key={section.title} style={{ marginBottom: "2.5rem" }}>
             <h2 style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 600, fontSize: "1.125rem", color: "var(--text-primary)", marginBottom: "0.875rem" }}>{section.title}</h2>

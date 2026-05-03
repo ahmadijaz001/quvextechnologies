@@ -163,12 +163,12 @@ export default function ContactForm({
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate className={compact ? "lux-form-compact" : ""}>
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: compact ? "1fr" : "1fr 1fr",
-            gap: "1.125rem",
+            gridTemplateColumns: compact ? "1fr 1fr" : "1fr 1fr",
+            gap: compact ? "0.75rem" : "1.125rem",
           }}
         >
           {/* Name */}
@@ -250,7 +250,7 @@ export default function ContactForm({
           </div>
 
           {/* Message — full width */}
-          <div className="lux-field" style={{ gridColumn: compact ? "1" : "1 / -1" }}>
+          <div className="lux-field" style={{ gridColumn: "1 / -1" }}>
             <label className="lux-label" htmlFor="cf-message">
               <span style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
                 <MessageSquare size={11} /> Message
@@ -260,7 +260,7 @@ export default function ContactForm({
               id="cf-message"
               name="message"
               required
-              rows={compact ? 3 : 4}
+              rows={compact ? 2 : 4}
               placeholder="Tell us about your project, challenges, or goals..."
               value={form.message}
               onChange={handleChange}

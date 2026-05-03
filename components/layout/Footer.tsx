@@ -238,8 +238,8 @@ export default function Footer() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
               {[
                 { Icon: MapPin, text: "Sheikh Zayed Road, Dubai, UAE" },
-                { Icon: Phone, text: "+971 4 000 0000" },
-                { Icon: Mail, text: "concierge@akross.ae" },
+                { Icon: Phone, text: "+971 55 930 0437" },
+                { Icon: Mail, text: "hello@akross.ae" },
               ].map(({ Icon, text }) => (
                 <div key={text} style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
                   <div

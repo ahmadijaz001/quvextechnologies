@@ -7,11 +7,6 @@ import {
   CheckCircle2, Globe, Cpu, Server, Boxes, Smartphone, Network,
 } from "lucide-react";
 
-import dynamic from "next/dynamic";
-
-const Hero3DSlider = dynamic(() => import("./Hero3DSlider"), {
-  ssr: false,
-});
 
 /* ══════════════════════════════════════════
    COUNT-UP HOOK
@@ -306,8 +301,8 @@ export default function Hero() {
         }}
       />
 
-      {/* ── 3D scene slider — service-matched, swipes with same controls ── */}
-      <Hero3DSlider current={current} />
+      {/* Hero3D objects removed — page-wide HomeStarBackdrop carries the
+          galaxy/star backdrop, keeping the hero clean and uncrowded. */}
 
       {/* Soft side overlay — keeps headline readable on the left */}
       <div
@@ -1492,23 +1487,55 @@ export default function Hero() {
           pointer-events: none;
         }
 
-        /* ── Responsive ── */
+        /* ── Responsive — Tablet & smaller ── */
         @media (max-width: 1024px) {
           .hero-section { height: auto !important; min-height: 100svh !important; }
-          .hero-right-panel { display: none !important; }
-          .hero-grid > div:first-child { width: 100% !important; max-width: 100% !important; }
+          .hero-grid {
+            flex-direction: column !important;
+            gap: 2.5rem !important;
+            align-items: stretch !important;
+          }
+          .hero-grid > div:first-child {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .hero-right-panel {
+            min-height: auto !important;
+            padding: 0 !important;
+          }
+          .hero-svc-row {
+            margin-left: 0 !important;
+            max-width: 100% !important;
+            align-items: stretch !important;
+          }
           section[aria-label*="Hero"] button[aria-label="Previous scene"],
           section[aria-label*="Hero"] button[aria-label="Next scene"] { display: none !important; }
         }
 
+        /* ── Phone — tighter sizing, stacked, easy to scan ── */
+        @media (max-width: 640px) {
+          .hero-section .headline-hero {
+            font-size: clamp(2.25rem, 9vw, 3rem) !important;
+            line-height: 1.1 !important;
+          }
+          .hero-grid {
+            padding: clamp(5.5rem, 10vh, 7rem) 1.25rem 2rem !important;
+            gap: 2rem !important;
+          }
+          .hero-svc-row { gap: 0.625rem !important; }
+          .hero-svc-card { padding: 0.75rem 0.875rem !important; }
+          .hero-svc-icon { width: 38px !important; height: 38px !important; }
+          .hero-ticker-wrap { display: none !important; }
+        }
+
         /* ── Mid viewports — drop ticker to fit ── */
-        @media (max-height: 900px) {
+        @media (min-width: 1025px) and (max-height: 900px) {
           .hero-ticker-wrap { display: none !important; }
           .hero-grid { padding-top: clamp(5.5rem, 10vh, 7rem) !important; }
         }
 
         /* ── Short viewports — also tighten margins ── */
-        @media (max-height: 760px) {
+        @media (min-width: 1025px) and (max-height: 760px) {
           .hero-grid { padding-top: clamp(5rem, 8vh, 6rem) !important; padding-bottom: 1.5rem !important; }
         }
 

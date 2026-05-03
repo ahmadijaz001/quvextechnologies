@@ -150,12 +150,12 @@ export default function CTABanner() {
             Reserve a Consultation
           </Link>
           <Link
-            href="tel:+97140000000"
+            href="tel:+971559300437"
             className="btn-outline"
             style={{ gap: "0.625rem" }}
           >
             <Phone size={16} />
-            +971 4 000 0000
+            +971 55 930 0437
           </Link>
         </div>
 

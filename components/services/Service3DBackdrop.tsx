@@ -79,6 +79,7 @@ export default function Service3DBackdrop({ accentColor = "#00d4ff", density = "
   return (
     <div
       aria-hidden="true"
+      className="svc-3d-backdrop"
       style={{
         position: "absolute",
         inset: 0,
@@ -99,6 +100,13 @@ export default function Service3DBackdrop({ accentColor = "#00d4ff", density = "
           <InnerSphere accentColor={accentColor} />
         </group>
       </Canvas>
+      {/* Phone — pull the camera back via a CSS transform so the wireframe
+          globes never visually crowd the small viewport */}
+      <style>{`
+        @media (max-width: 640px) {
+          .svc-3d-backdrop { transform: scale(0.65); transform-origin: 50% 50%; opacity: 0.7; }
+        }
+      `}</style>
     </div>
   );
 }

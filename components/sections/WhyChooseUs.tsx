@@ -250,8 +250,16 @@ export default function WhyChooseUs() {
       </div>
 
       <style>{`
+        /* Tablet — stack columns */
         @media (max-width: 900px) {
-          section[aria-labelledby="why-heading"] > div { grid-template-columns: 1fr !important; }
+          section[aria-labelledby="why-heading"] > div { grid-template-columns: 1fr !important; min-height: auto !important; }
+        }
+        /* Phone — single-column USP grid + tighter cards */
+        @media (max-width: 640px) {
+          section[aria-labelledby="why-heading"] > div > div:last-child > div { grid-template-columns: 1fr !important; gap: 0.875rem !important; }
+          section[aria-labelledby="why-heading"] > div > div:last-child > div > div { padding: 1.25rem 1.125rem !important; background: rgba(10,17,41,0.78) !important; }
+          section[aria-labelledby="why-heading"] > div > div:last-child { padding: 2rem 1.25rem !important; }
+          section[aria-labelledby="why-heading"] > div > div:first-child { min-height: 380px !important; }
         }
       `}</style>
     </section>

@@ -143,7 +143,7 @@ const organizationSchema = {
       ],
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+971-4-000-0000",
+        telephone: "+971-55-930-0437",
         contactType: "Customer Service",
         areaServed: ["AE", "SA", "QA", "BH", "OM", "KW"],
         availableLanguage: ["English", "Arabic"],
@@ -155,7 +155,7 @@ const organizationSchema = {
       name: "aKross Information Technology LLC",
       image: "https://akross.ae/AkrossLogo.png",
       url: "https://akross.ae",
-      telephone: "+971-4-000-0000",
+      telephone: "+971-55-930-0437",
       priceRange: "$$$",
       address: {
         "@type": "PostalAddress",
