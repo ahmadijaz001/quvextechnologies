@@ -62,7 +62,7 @@ function buildEmail(data: z.infer<typeof schema>) {
       ${rows.map(([k, v]) => `
         <tr>
           <td style="padding:14px 24px;border-bottom:1px solid #f0e9d2;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6b4d0a;width:34%;vertical-align:top;font-weight:700;">${escapeHtml(k)}</td>
-          <td style="padding:14px 24px;border-bottom:1px solid #f0e9d2;font-size:14px;color:#0a1129;line-height:1.55;white-space:pre-line;">${escapeHtml(v)}</td>
+          <td style="padding:14px 24px;border-bottom:1px solid #f0e9d2;font-size:14px;color:#0a1129;line-height:1.55;white-space:pre-line;">${escapeHtml(v ?? "")}</td>
         </tr>
       `).join("")}
     </table>
