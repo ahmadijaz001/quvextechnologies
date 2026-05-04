@@ -39,11 +39,15 @@ function StatItem({ num, suffix, label, delay, special }: {
   const decimals = suffix === "%" && num % 1 !== 0 ? 1 : 0;
   const count = useCountUp(special ? 0 : num, 2200, delay, decimals);
   return (
-    <div style={{ animation: `heroSlideUp 1s cubic-bezier(.22,1,.36,1) ${(delay / 1000).toFixed(2)}s both` }}>
+    <div
+      className="hero-stat-item"
+      style={{ animation: `heroSlideUp 1s cubic-bezier(.22,1,.36,1) ${(delay / 1000).toFixed(2)}s both` }}
+    >
       <div
+        className="hero-stat-num"
         style={{
           fontFamily: "var(--font-playfair), var(--font-cormorant), serif",
-          fontSize: "clamp(1.875rem, 2.6vw, 2.375rem)",
+          fontSize: "clamp(1.5rem, 2vw, 2rem)",
           fontWeight: 500,
           background: "linear-gradient(180deg, #f3e6b0 0%, #d4af37 100%)",
           WebkitBackgroundClip: "text",
@@ -51,19 +55,22 @@ function StatItem({ num, suffix, label, delay, special }: {
           backgroundClip: "text",
           lineHeight: 1,
           letterSpacing: "-0.02em",
+          whiteSpace: "nowrap",
         }}
       >
         {special ?? `${decimals > 0 ? count.toFixed(1) : count}${suffix}`}
       </div>
       <div
+        className="hero-stat-label"
         style={{
-          fontSize: "0.6875rem",
+          fontSize: "0.625rem",
           color: "rgba(245,241,230,0.7)",
-          marginTop: "0.375rem",
-          letterSpacing: "0.2em",
+          marginTop: "0.4rem",
+          letterSpacing: "0.14em",
           textTransform: "uppercase",
           fontFamily: "var(--font-syne), sans-serif",
           fontWeight: 600,
+          lineHeight: 1.25,
         }}
       >
         {label}
@@ -531,13 +538,15 @@ export default function Hero() {
           {/* Stats strip */}
           <div style={{ animation: "heroSlideUp 1s cubic-bezier(.22,1,.36,1) 1.05s both" }}>
             <div
+              className="hero-stats-grid"
               style={{
-                display: "flex",
-                gap: "1rem 2rem",
-                flexWrap: "wrap",
+                display: "grid",
+                gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+                gap: "0.75rem",
                 paddingTop: "1.125rem",
                 borderTop: "1px solid rgba(212,175,55,0.2)",
-                maxWidth: 540,
+                width: "100%",
+                maxWidth: 560,
               }}
             >
               {stats.map((s, i) => (
@@ -999,6 +1008,7 @@ export default function Hero() {
 
       {/* Scene label + dot indicators */}
       <div
+        className="hero-slide-indicator"
         style={{
           position: "absolute",
           bottom: "1.75rem",
@@ -1083,6 +1093,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         aria-hidden="true"
+        className="hero-scroll-cue"
         style={{
           position: "absolute",
           bottom: "2rem",
@@ -1415,6 +1426,22 @@ export default function Hero() {
           box-shadow: 0 6px 22px rgba(0,0,0,0.4);
         }
 
+        /* ── Stats grid — hairline gold dividers between columns ── */
+        .hero-stat-item {
+          position: relative;
+          padding-left: 0.85rem;
+        }
+        .hero-stat-item:first-child { padding-left: 0; }
+        .hero-stat-item + .hero-stat-item::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 6%;
+          bottom: 6%;
+          width: 1px;
+          background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.28), transparent);
+        }
+
         /* ── Responsive — Tablet & smaller ── */
         @media (max-width: 1024px) {
           .hero-grid {
@@ -1452,6 +1479,13 @@ export default function Hero() {
           .hero-cta-row { gap: 0.5rem; margin-bottom: 1rem; }
           .hero-svc-card { padding: 0.6rem 0.75rem; }
           .hero-svc-icon { width: 32px; height: 32px; }
+          /* Stats — collapse to 2x2 so numbers + labels stay readable */
+          .hero-stats-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 0.9rem 0.75rem !important;
+          }
+          .hero-stat-item:nth-child(3) { padding-left: 0; }
+          .hero-stat-item:nth-child(3)::before { display: none; }
           /* Hide bottom carousel slide caption + dots on mobile — they overlap content */
           .hero-slide-indicator { display: none !important; }
           /* Hide vertical "Discover" scroll cue on mobile */
