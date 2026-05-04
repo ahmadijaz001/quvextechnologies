@@ -20,10 +20,10 @@ const columns = [
     links: [
       { label: "Enterprise ERP", href: "/services/erp" },
       { label: "Web & eCommerce", href: "/services/web-ecommerce" },
-      { label: "Digital Marketing", href: "/services/digital-marketing" },
+      { label: "Fiber Cabling", href: "/services/fiber-cabling" },
       { label: "AI & Automation", href: "/services/ai-automation" },
       { label: "Cloud & IT Infrastructure", href: "/services/it-infrastructure" },
-      { label: "Mobile Applications", href: "/services/mobile-apps" },
+      { label: "IT Peripherals & Hardware", href: "/services/it-peripherals" },
     ],
   },
   {

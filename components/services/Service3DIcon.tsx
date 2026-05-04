@@ -189,6 +189,8 @@ export default function Service3DIcon({ category, accentColor = "#00d4ff", size 
         {category === "web-ecommerce" && <BrowserFrame accentColor={accentColor} />}
         {category === "digital-marketing" && <AscendingBars accentColor={accentColor} />}
         {category === "mobile-apps" && <PhoneShape accentColor={accentColor} />}
+        {category === "fiber-cabling" && <ServerStack accentColor={accentColor} />}
+        {category === "it-peripherals" && <CubeGrid accentColor={accentColor} />}
       </Canvas>
     </div>
   );

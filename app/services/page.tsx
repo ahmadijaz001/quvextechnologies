@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { serviceCategories } from "@/lib/services-data";
 import CTABanner from "@/components/sections/CTABanner";
 import {
-  ArrowUpRight, Database, Cloud, Megaphone, Bot, Server, Smartphone, Globe,
+  ArrowUpRight, Database, Cloud, Megaphone, Bot, Server, Smartphone, Globe, Cable, Cpu,
 } from "lucide-react";
 
 const Service3DBackdrop = dynamic(() => import("@/components/services/Service3DBackdrop"), { ssr: false });
@@ -17,7 +17,11 @@ const categoryIconMap: Record<string, React.FC<{ size?: number; color?: string; 
   Server,
   Smartphone,
   Globe,
+  Cable,
+  Cpu,
 };
+
+const visibleCategories = serviceCategories.filter(c => !c.excludeFromNav);
 
 
 export default function ServicesHub() {
@@ -60,13 +64,13 @@ export default function ServicesHub() {
             <span className="gradient-text">Solutions</span>
           </h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "600px", margin: "0 auto" }}>
-            50+ individual services across 6 technology pillars. Click any service to see full details — features, process, technologies, and pricing guidance.
+            60+ individual services across {visibleCategories.length} technology pillars. Click any service to see full details — features, process, technologies, and pricing guidance.
           </p>
         </div>
       </section>
 
       {/* All categories */}
-      {serviceCategories.map(category => (
+      {visibleCategories.map(category => (
         <section
           key={category.slug}
           id={category.slug}

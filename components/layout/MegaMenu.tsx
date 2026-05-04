@@ -1,32 +1,34 @@
 "use client";
 import Link from "next/link";
-import { Database, Globe, Megaphone, Bot, Server, Smartphone, ArrowUpRight } from "lucide-react";
+import { Database, Globe, Bot, Server, Cable, Cpu, ArrowUpRight } from "lucide-react";
 import { serviceCategories } from "@/lib/services-data";
 
 const pillarMeta: Record<string, { icon: typeof Database; color: string }> = {
-  "erp":               { icon: Database,   color: "#d4af37" },
-  "web-ecommerce":     { icon: Globe,      color: "#e9d27a" },
-  "digital-marketing": { icon: Megaphone,  color: "#c9a44c" },
-  "ai-automation":     { icon: Bot,        color: "#f3e6b0" },
-  "it-infrastructure": { icon: Server,     color: "#dec05a" },
-  "mobile-apps":       { icon: Smartphone, color: "#a8862a" },
+  "erp":               { icon: Database, color: "#d4af37" },
+  "web-ecommerce":     { icon: Globe,    color: "#e9d27a" },
+  "ai-automation":     { icon: Bot,      color: "#f3e6b0" },
+  "it-infrastructure": { icon: Server,   color: "#a8862a" },
+  "fiber-cabling":     { icon: Cable,    color: "#56b8ff" },
+  "it-peripherals":    { icon: Cpu,      color: "#dec05a" },
 };
 
 const MAX_SERVICES_PER_PILLAR = 6;
 
-const pillars = serviceCategories.map(cat => {
-  const meta = pillarMeta[cat.slug] ?? { icon: Database, color: "#d4af37" };
-  return {
-    icon: meta.icon,
-    color: meta.color,
-    name: cat.name,
-    href: `/services/${cat.slug}`,
-    services: cat.services.slice(0, MAX_SERVICES_PER_PILLAR).map(s => ({
-      name: s.name,
-      href: `/services/${cat.slug}/${s.slug}`,
-    })),
-  };
-});
+const pillars = serviceCategories
+  .filter(cat => !cat.excludeFromNav)
+  .map(cat => {
+    const meta = pillarMeta[cat.slug] ?? { icon: Database, color: "#d4af37" };
+    return {
+      icon: meta.icon,
+      color: meta.color,
+      name: cat.name,
+      href: `/services/${cat.slug}`,
+      services: cat.services.slice(0, MAX_SERVICES_PER_PILLAR).map(s => ({
+        name: s.name,
+        href: `/services/${cat.slug}/${s.slug}`,
+      })),
+    };
+  });
 
 export default function MegaMenu({ onClose }: { onClose: () => void }) {
   return (

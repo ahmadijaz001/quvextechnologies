@@ -51,6 +51,20 @@ const categoryFAQs: Record<string, { q: string; a: string }[]> = {
     { q: "Do you handle App Store and Google Play submission?", a: "Yes. We handle the full submission process including App Store Connect, Google Play Console, metadata, screenshots, ASO (App Store Optimization), and ongoing app updates and maintenance." },
     { q: "Can you integrate our existing backend/ERP with the mobile app?", a: "Yes. We specialize in integrating mobile apps with existing systems including Odoo, SAP, Dynamics, custom REST APIs, and third-party services. API integration is a core part of every app we build." },
   ],
+  "fiber-cabling": [
+    { q: "How long does a fiber cabling project take in the UAE?", a: "A 50-drop office cabling project typically takes 5–10 working days from kick-off to certified handover. Larger fit-outs (200+ drops or multi-floor) take 3–6 weeks. Data centre and FTTH projects are scoped individually based on cable counts and authority approvals." },
+    { q: "Do you provide certified test reports for every link?", a: "Yes. Every fiber link is OTDR-tested bi-directionally and every copper drop is permanent-link certified using Fluke DSX-8000. You receive a complete PDF and CSV report database, an as-built CAD plan, and warranty registration with the manufacturer." },
+    { q: "What manufacturer warranty do you offer on structured cabling?", a: "All certified cabling carries a 25-year manufacturer system warranty (Panduit, CommScope SYSTIMAX, Belden, or Legrand) covering both components and channel performance — provided installation is performed by certified installers, which we are." },
+    { q: "Can you handle fiber pulling between buildings or across a campus?", a: "Yes. We deliver outdoor armoured single-mode fiber with civil works (trenching, ducting, manholes), aerial fiber where permitted, and FTTB hand-off into building MMRs — coordinated with municipality, RTA, and developer approvals." },
+    { q: "Do you support emergency fiber restoration?", a: "We operate 24/7 mobile splicing teams across Dubai, Abu Dhabi, and Sharjah for fiber cuts and link outages. Standard SLA response is within 2–4 hours of dispatch with full splice and OTDR verification before service handback." },
+  ],
+  "it-peripherals": [
+    { q: "Are your CCTV installations Dubai SIRA compliant?", a: "Yes. Every CCTV system we install is designed and commissioned to Dubai Police SIRA, Abu Dhabi Monitoring & Control Centre (Sharik), and DCD video surveillance regulations. We handle authority submission, drawings, and post-installation audit." },
+    { q: "Which laptop and PC brands do you supply?", a: "We are an authorized partner of Dell (Latitude, OptiPlex, Precision), HP (EliteBook, ProBook, Z-series), Lenovo (ThinkPad, ThinkCentre, ThinkStation), Apple (MacBook, Mac Studio), and ASUS business lines — sourced via official UAE distribution with full warranty." },
+    { q: "Can you set up our entire new office IT environment turnkey?", a: "Yes. We provide single-vendor turnkey delivery covering server room, network rack, structured cabling, Wi-Fi, CCTV, access control, VoIP, conference room AV, printers, and end-user device staging — all on one project plan with one accountable PM." },
+    { q: "Do you offer on-going hardware support and break-fix?", a: "We offer SLA-backed support contracts including next-business-day on-site, 4-hour response, and dedicated-engineer options. Hot-spare laptops and switches can be staged at your site for immediate swap." },
+    { q: "Can you integrate access control with our HR / payroll system?", a: "Yes. We integrate ZKTeco, Suprema, HID, and Hikvision biometric / card readers with Odoo HR, SAP SuccessFactors, Microsoft Dynamics, and custom payroll systems — automating attendance capture and exception handling." },
+  ],
 };
 
 export default function CategoryPageTemplate({ category }: CategoryPageTemplateProps) {

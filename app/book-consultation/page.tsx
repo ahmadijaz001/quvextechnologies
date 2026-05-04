@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CheckCircle2, Calendar, Sparkles, Clock, ShieldCheck } from "lucide-react";
 import PageStarBackdrop from "@/components/sections/PageStarBackdrop";
 
@@ -13,6 +13,27 @@ export default function BookConsultationPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const successRef = useRef<HTMLDivElement | null>(null);
+
+  // When step changes, bring the form's top into view so users don't land mid-step.
+  const goToStep = (next: number) => {
+    setStep(next);
+    requestAnimationFrame(() => {
+      const el = formRef.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 88; // header offset
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    });
+  };
+
+  // After successful submit, scroll the confirmation card into view on every viewport.
+  useEffect(() => {
+    if (!submitted) return;
+    const el = successRef.current;
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [submitted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +60,7 @@ export default function BookConsultationPage() {
       <>
         <PageStarBackdrop />
         <div className="cosmic-page" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
-          <div style={{ textAlign: "center", maxWidth: 500 }}>
+          <div ref={successRef} style={{ textAlign: "center", maxWidth: 500 }}>
             <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(0,230,138,0.1)", border: "2px solid rgba(0,230,138,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
               <CheckCircle2 size={32} style={{ color: "var(--accent-success)" }} />
             </div>
@@ -101,7 +122,7 @@ export default function BookConsultationPage() {
               </div>
 
               {/* RIGHT — multi-step form */}
-              <form onSubmit={handleSubmit} className="glass-card booking-form">
+              <form ref={formRef} onSubmit={handleSubmit} className="glass-card booking-form">
                 {/* Progress */}
                 <div className="booking-steps">
                   {[1, 2, 3].map(s => (
@@ -142,7 +163,7 @@ export default function BookConsultationPage() {
                       ))}
                     </div>
                     <div className="booking-actions">
-                      <button type="button" onClick={() => setStep(2)} className="btn-primary">
+                      <button type="button" onClick={() => goToStep(2)} className="btn-primary">
                         Continue <Calendar size={15} />
                       </button>
                     </div>
@@ -198,8 +219,8 @@ export default function BookConsultationPage() {
                     </div>
 
                     <div className="booking-actions">
-                      <button type="button" onClick={() => setStep(1)} className="btn-outline">Back</button>
-                      <button type="button" onClick={() => setStep(3)} className="btn-primary">Review</button>
+                      <button type="button" onClick={() => goToStep(1)} className="btn-outline">Back</button>
+                      <button type="button" onClick={() => goToStep(3)} className="btn-primary">Review</button>
                     </div>
                   </div>
                 )}
@@ -231,7 +252,7 @@ export default function BookConsultationPage() {
                       </div>
                     )}
                     <div className="booking-actions">
-                      <button type="button" onClick={() => setStep(2)} className="btn-outline" disabled={submitting}>Edit</button>
+                      <button type="button" onClick={() => goToStep(2)} className="btn-outline" disabled={submitting}>Edit</button>
                       <button type="submit" className="btn-primary" disabled={submitting} style={{ opacity: submitting ? 0.7 : 1 }}>
                         {submitting ? "Sending..." : "Submit Request"}
                       </button>
@@ -328,11 +349,17 @@ export default function BookConsultationPage() {
           .booking-form { margin-left: 0 !important; max-width: 100% !important; }
         }
         @media (max-width: 640px) {
-          .booking-form { padding: 1.125rem !important; }
-          .booking-grid-2 { grid-template-columns: 1fr !important; }
+          .booking-form { padding: 1rem !important; }
+          .booking-form-title { font-size: 0.95rem !important; margin-bottom: 0.75rem !important; }
+          .booking-grid-2 { grid-template-columns: 1fr !important; gap: 0.6rem !important; }
+          .booking-input { padding: 0.55rem 0.75rem !important; font-size: 0.85rem !important; }
+          textarea.booking-input { min-height: 64px !important; }
+          .booking-pill { padding: 0.32rem 0.65rem !important; font-size: 0.75rem !important; }
+          .booking-actions { margin-top: 0.875rem !important; gap: 0.5rem !important; }
           .booking-actions .btn-primary,
-          .booking-actions .btn-outline { width: 100% !important; max-width: none !important; }
+          .booking-actions .btn-outline { width: 100% !important; max-width: none !important; padding: 0.65rem 1rem !important; }
           .booking-step-label { display: none !important; }
+          .booking-steps { margin-bottom: 0.95rem !important; }
           .booking-hero { padding-top: clamp(5rem, 16vw, 6.5rem) !important; padding-bottom: 2rem !important; }
         }
       `}</style>

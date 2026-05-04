@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Send, CheckCircle2, Loader2, Phone, Mail, User, MessageSquare, Briefcase } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 
@@ -46,6 +46,13 @@ export default function ContactForm({
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const successRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (status !== "success") return;
+    const el = successRef.current;
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [status]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -76,6 +83,7 @@ export default function ContactForm({
   if (status === "success") {
     return (
       <div
+        ref={successRef}
         style={{
           display: "flex",
           flexDirection: "column",
