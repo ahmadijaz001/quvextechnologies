@@ -12,7 +12,7 @@ const timeline = [
   { year: "2022", title: "Digital Marketing Division", desc: "Launched full-service digital marketing to offer complete digital transformation under one roof." },
   { year: "2023", title: "AI & Automation Practice", desc: "Launched dedicated AI/ML practice as the first UAE-based Odoo partner to integrate LLMs into ERP workflows." },
   { year: "2024", title: "AWS & Azure Partner", desc: "Achieved partner status with Amazon Web Services and Microsoft Azure." },
-  { year: "2025", title: "150+ Clients, 500+ Projects", desc: "Reached AED 50M+ in cumulative project value delivered across 12+ industries." },
+  { year: "2025", title: "Integrated IT & Digital Practice", desc: "Expanded service portfolio across ERP, cloud, AI, cybersecurity, and marketing — one accountable partner instead of five vendors." },
 ];
 
 const team = [

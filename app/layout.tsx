@@ -105,13 +105,6 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/AkrossLogo.png", type: "image/png" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
   alternates: {
     canonical: "https://akross.ae",
     languages: { "en-AE": "https://akross.ae", "ar-AE": "https://akross.ae/ar" },
