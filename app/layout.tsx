@@ -8,6 +8,7 @@ import ScrollProgress from "@/components/shared/ScrollProgress";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import Preloader from "@/components/animations/Preloader";
+import { Analytics } from "@vercel/analytics/next";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -211,6 +212,7 @@ export default function RootLayout({
         <Footer />
         <WhatsAppButton />
         <ScrollToTop />
+        <Analytics />
       </body>
     </html>
   );
