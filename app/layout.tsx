@@ -129,7 +129,6 @@ const organizationSchema = {
       },
       description:
         "UAE's premier enterprise IT consultancy delivering digital transformation, ERP, cloud, cybersecurity & AI automation.",
-      foundingDate: "2018",
       sameAs: [
         "https://www.linkedin.com/company/akross",
         "https://twitter.com/akross_ae",
