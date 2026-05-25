@@ -110,6 +110,9 @@ export const metadata: Metadata = {
     canonical: "https://akross.ae",
     languages: { "en-AE": "https://akross.ae", "ar-AE": "https://akross.ae/ar" },
   },
+  verification: {
+    google: "m3EK1IxG2GzhyAegCuqs-M0HG1Y0oaRfumg7beNeg_U",
+  },
 };
 
 const organizationSchema = {
